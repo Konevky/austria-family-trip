@@ -684,7 +684,8 @@
     }
 
     .map-sidebar-collapse-btn {
-      display: none;
+      display: inline-flex;
+      align-items: center;
       font-family: inherit;
       font-size: 12px;
       font-weight: 600;
@@ -696,6 +697,40 @@
       cursor: pointer;
       white-space: nowrap;
       min-height: 34px;
+    }
+
+    .map-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .map-toolbar .btn {
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      min-height: 40px;
+    }
+
+    .map-canvas-wrap {
+      width: 100%;
+      min-width: 0;
+      position: relative;
+    }
+
+    #tripMap,
+    .leaflet-container {
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .leaflet-control-zoom a {
+      width: 36px !important;
+      height: 36px !important;
+      line-height: 36px !important;
+      font-size: 18px !important;
     }
 
     .map-sidebar-body { display: block; }
@@ -922,6 +957,25 @@
         gap: 10px;
       }
 
+      .map-toolbar {
+        order: -3;
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        background: var(--bg);
+        padding: 4px 0 8px;
+      }
+
+      .map-sidebar {
+        width: 100%;
+        max-height: none;
+        order: -2;
+        position: relative;
+        top: auto;
+        z-index: 2;
+        padding: 10px 12px;
+      }
+
       .map-layout > div.map-canvas-wrap {
         order: -1;
         width: 100%;
@@ -949,26 +1003,27 @@
         display: none;
       }
 
-      .map-sidebar {
-        width: 100%;
-        max-height: none;
-        order: 0;
-        position: relative;
-        top: auto;
-        z-index: 2;
-        padding: 10px 12px;
+      .map-sidebar-collapse-btn { display: none; }
+
+      .map-sidebar.collapsed .map-sidebar-header,
+      .map-sidebar.collapsed .map-sidebar-body {
+        display: none;
       }
 
-      .map-sidebar-collapse-btn { display: inline-flex; align-items: center; }
-
       .map-sidebar:not(.collapsed) {
-        max-height: min(38vh, 320px);
+        max-height: min(42vh, 360px);
         overflow: auto;
       }
 
       .map-sidebar.collapsed {
         max-height: none;
         overflow: visible;
+      }
+
+      .map-sidebar.collapsed .map-poi-toggles {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
       }
 
       .map-poi-toggles {
@@ -1130,6 +1185,10 @@
 
     <div class="view-panel" id="panelMap">
       <div class="map-layout">
+        <div class="map-toolbar">
+          <button type="button" class="btn btn-primary" id="mapShowDaysBtn"></button>
+          <button type="button" class="btn" id="mapFitBtn"></button>
+        </div>
         <aside class="map-sidebar" id="mapSidebar">
           <div class="map-sidebar-header">
             <h3 id="mapSelectTitle"></h3>
@@ -1930,8 +1989,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
         mapRestaurantRating: 'Google rating',
         mapRestaurantReviews: 'reviews',
         mapDriveFromHotel: 'Drive from hotel',
-        mapSidebarCollapse: 'Hide day list',
-        mapSidebarExpand: 'Show day list',
+        mapSidebarCollapse: 'Hide days',
+        mapSidebarExpand: 'Show days',
+        mapFitView: 'Reset zoom',
         filterCollapse: 'Collapse filters',
         filterExpand: 'Expand filters'
       },
@@ -2022,8 +2082,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
         mapRestaurantRating: 'דירוג גוגל',
         mapRestaurantReviews: 'ביקורות',
         mapDriveFromHotel: 'נסיעה מהמלון',
-        mapSidebarCollapse: 'הסתר רשימת ימים',
-        mapSidebarExpand: 'הצג רשימת ימים',
+        mapSidebarCollapse: 'הסתר ימים',
+        mapSidebarExpand: 'הצג ימים',
+        mapFitView: 'אפס זום',
         filterCollapse: 'כווץ פילטרים',
         filterExpand: 'הרחב פילטרים'
       }
@@ -2110,6 +2171,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
     let mapLayerGroup = null;
     let currentView = 'cards';
     let filteredDayIds = new Set();
+    let mapUserInteracted = false;
+    let mapFitRequest = true;
     let filtersCollapsed = localStorage.getItem('austriaTripFiltersCollapsed') === '1'
       || (localStorage.getItem('austriaTripFiltersCollapsed') === null
           && typeof window !== 'undefined'
@@ -3966,10 +4029,24 @@ svg.leaflet-image-layer.leaflet-interactive path {
       const mapEl = document.getElementById('tripMap');
       // Ensure container is visible and has size before init
       bumpMapSize();
-      leafletMap = window.L.map(mapEl, { scrollWheelZoom: true }).setView([47.5, 13.3], 8);
+      leafletMap = window.L.map(mapEl, {
+        scrollWheelZoom: true,
+        touchZoom: true,
+        doubleClickZoom: true,
+        boxZoom: true,
+        keyboard: true,
+        zoomControl: true,
+        dragging: true,
+        minZoom: 6,
+        maxZoom: 18,
+        bounceAtZoomLimits: true
+      }).setView([47.5, 13.3], 8);
       addTileLayer();
       mapLayerGroup = window.L.layerGroup().addTo(leafletMap);
       poiLayerGroup = window.L.layerGroup().addTo(leafletMap);
+      leafletMap.on('zoomstart movestart dragstart', () => {
+        mapUserInteracted = true;
+      });
       mapInitialized = true;
       bumpMapSize();
       return true;
@@ -4115,11 +4192,26 @@ svg.leaflet-image-layer.leaflet-interactive path {
       }
 
       if (bounds.length) {
-        leafletMap.fitBounds(bounds, { padding: [36, 36], maxZoom: selected.length <= 2 ? 11 : 10 });
-      } else {
+        if (mapFitRequest || !mapUserInteracted) {
+          leafletMap.fitBounds(bounds, {
+            padding: [36, 36],
+            maxZoom: selected.length <= 2 ? 11 : 10,
+            animate: false
+          });
+          mapFitRequest = false;
+          mapUserInteracted = false;
+        }
+      } else if (mapFitRequest || !mapUserInteracted) {
         leafletMap.setView([47.5, 13.3], 8);
+        mapFitRequest = false;
       }
       bumpMapSize();
+    }
+
+    function fitMapToContent() {
+      mapFitRequest = true;
+      mapUserInteracted = false;
+      refreshMap();
     }
 
     function isMobileLayout() {
@@ -4130,10 +4222,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
       const u = UI[lang];
       const side = document.getElementById('mapSidebar');
       const btn = document.getElementById('mapSidebarCollapseBtn');
-      if (!side || !btn) return;
-      side.classList.toggle('collapsed', mapSidebarCollapsed);
-      btn.setAttribute('aria-expanded', mapSidebarCollapsed ? 'false' : 'true');
-      btn.textContent = mapSidebarCollapsed ? u.mapSidebarExpand : u.mapSidebarCollapse;
+      const showBtn = document.getElementById('mapShowDaysBtn');
+      if (side) side.classList.toggle('collapsed', mapSidebarCollapsed);
+      if (btn) {
+        btn.setAttribute('aria-expanded', mapSidebarCollapsed ? 'false' : 'true');
+        btn.textContent = mapSidebarCollapsed ? u.mapSidebarExpand : u.mapSidebarCollapse;
+      }
+      if (showBtn) {
+        showBtn.setAttribute('aria-expanded', mapSidebarCollapsed ? 'false' : 'true');
+        showBtn.textContent = mapSidebarCollapsed ? u.mapSidebarExpand : u.mapSidebarCollapse;
+      }
+      const fitBtn = document.getElementById('mapFitBtn');
+      if (fitBtn) fitBtn.textContent = u.mapFitView;
     }
 
     function toggleMapSidebarCollapsed() {
@@ -4194,6 +4294,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
     document.getElementById('filterCollapseBtn').addEventListener('click', toggleFiltersCollapsed);
     document.getElementById('mapSidebarCollapseBtn').addEventListener('click', toggleMapSidebarCollapsed);
+    document.getElementById('mapShowDaysBtn').addEventListener('click', toggleMapSidebarCollapsed);
+    document.getElementById('mapFitBtn').addEventListener('click', fitMapToContent);
     document.getElementById('langHe').addEventListener('click', () => setLang('he'));
     document.getElementById('langEn').addEventListener('click', () => setLang('en'));
     document.getElementById('baseFilter').addEventListener('change', () => {
@@ -4213,6 +4315,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
     document.getElementById('mapSelectFiltered').addEventListener('click', () => {
       mapAutoSelect = true;
       selectedDayIds = new Set(getFilteredDays().map(d => d.id));
+      mapFitRequest = true;
+      mapUserInteracted = false;
       syncMapDayList();
       refreshMap();
     });
@@ -4229,6 +4333,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
     document.getElementById('mapClearDays').addEventListener('click', () => {
       mapAutoSelect = false;
       selectedDayIds = new Set();
+      mapFitRequest = true;
+      mapUserInteracted = false;
       syncMapDayList();
       refreshMap();
     });
