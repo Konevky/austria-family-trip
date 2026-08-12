@@ -1167,9 +1167,9 @@
 
   <div class="kpi-row">
     <div class="kpi"><div class="value" id="kpiVisible">0</div><div class="label" id="kpiVisibleLabel"></div></div>
-    <div class="kpi"><div class="value">12</div><div class="label" id="kpiGrossarlLabel"></div></div>
-    <div class="kpi"><div class="value">12</div><div class="label" id="kpiLakesLabel"></div></div>
-    <div class="kpi"><div class="value">6</div><div class="label" id="kpiTransferLabel"></div></div>
+    <div class="kpi"><div class="value" id="kpiGrossarl">0</div><div class="label" id="kpiGrossarlLabel"></div></div>
+    <div class="kpi"><div class="value" id="kpiLakes">0</div><div class="label" id="kpiLakesLabel"></div></div>
+    <div class="kpi"><div class="value" id="kpiTransfer">0</div><div class="label" id="kpiTransferLabel"></div></div>
   </div>
 
   <main class="content">
@@ -2126,12 +2126,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
       L10: [47.8120, 13.7730],
       L11: [47.7392, 13.4415],
       L12: [47.8070, 13.4900],
-      T1: [47.8560, 12.3570],
-      T2: [47.7620, 13.0610],
-      T3: [47.6330, 10.7830],
-      T4: [47.8560, 13.3510],
-      T5: [47.5380, 13.4940],
-      T6: [47.8560, 12.3570]
+      G13: [47.2280, 13.1990],
+      G14: [47.4330, 13.5150],
+      G15: [47.2900, 13.4900],
+      T1: [48.0086, 11.8483],
+      T2: [47.5883, 12.9877],
+      T3: [47.7420, 12.6510],
+      T4: [47.5906, 13.1633],
+      T5: [47.9080, 13.1900],
+      T6: [48.0086, 11.8483]
     };
 
     const DAY_COLORS = [
@@ -3371,228 +3374,360 @@ svg.leaflet-image-layer.leaflet-interactive path {
         }
       },
       {
-        id: 'T1', base: 'transfer', weather: 'sunny',
-        types: ['water', 'playground', 'food'],
-        stroller: true, nap: true,
-        mapQuery: 'Chiemsee Prien Bavaria',
-        title: { en: 'Munich → Grossarl via Chiemsee', he: 'מינכן → גרוסרל דרך קימזה' },
-        drive: { en: 'MUC → Chiemsee 1 hr, +2 hr to Grossarl', he: 'מינכן → קימזה שעה, +שעתיים לגרוסרל' },
-        destination: { en: 'Chiemsee Prien + onward to Lammwirt', he: 'קימזה פריאן + המשך ל־Lammwirt' },
+        id: 'G13', base: 'grossarl', weather: 'sunny',
+        types: ['cable', 'nature', 'playground', 'food'],
+        stroller: false, nap: true,
+        mapQuery: 'Panoramabahn Großarl Bergbahnen',
+        title: { en: 'Panoramabahn Großarl — closed gondola from the village', he: 'רכבל גרוסרל (Panoramabahn) — גונדולה סגורה מהכפר' },
+        drive: { en: '5–10 min from Lammwirt', he: '5–10 דק׳ מ־Lammwirt' },
+        destination: { en: 'Panoramabahn Großarl, Unterberg 66, 5611 Großarl', he: 'Panoramabahn Großarl, Unterberg 66, 5611 Großarl' },
         morning: {
-          en: 'Pick up rental car at MUC ~10:00. Drive 1 hr to Chiemsee.',
-          he: 'איסוף רכב שכור במינכן ~10:00. נסיעה שעה לקימזה.'
+          en: 'Closest big attraction to the hotel — fully enclosed 8-person gondola, no open chairlift. First cabins ~9:00, quietest hour of the day.',
+          he: 'האטרקציה הגדולה הכי קרובה למלון — גונדולה סגורה ל־8 אנשים, בלי כיסא פתוח. קבינות ראשונות ~9:00, השעה הכי שקטה.'
         },
         activities: {
           en: [
-            'Prien promenade — paddle feet, watch boats',
-            "Optional: 20 min ferry to Herreninsel (enclosed boat) if flight wasn't too tiring",
-            'Playground near harbor'
+            'Ride up in the closed gondola — the 1yr can stay in the carrier the whole way',
+            'Top station meadow: cows, marmot statues, big open grass to crawl on',
+            'Easy 20–30 min flat loop near the top station (rest of the trails are steep)',
+            "Ruck Zucki's Gaudi-Alm adventure playground is on this mountain — go-karts, climbing, small animals"
           ],
           he: [
-            'טיילת פריאן — רגליים במים וצפייה בסירות',
-            'אופציונלי: מעבורת 20 דק׳ ל־Herreninsel (סירה סגורה) אם הטיסה לא התישה',
-            'גן שעשועים ליד הנמל'
+            'עלייה בגונדולה סגורה — הקטנה יכולה להישאר במנשא כל הדרך',
+            'אחו בתחנה העליונה: פרות, פסלי מרמיטות ודשא פתוח לזחילה',
+            'הקפה שטוחה קלה של 20–30 דק׳ ליד התחנה העליונה (שאר השבילים תלולים)',
+            'מתקן ההרפתקאות Ruck Zucki\'s Gaudi-Alm נמצא על ההר הזה — קארטינג, טיפוס וחיות קטנות'
           ]
         },
         lunch: {
-          en: 'Prien lakeside café — keep it short',
-          he: 'קפה על האגם בפריאן — לשמור קצר'
+          en: 'Mountain hut at the top station, or back down to Rohrerwirt / Schatzarei in the village',
+          he: 'בקתת הר בתחנה העליונה, או חזרה לרוהררווירט / שאצאריי בכפר'
         },
         afternoon: {
-          en: 'Drive 2 hr to Grossarl via A8/A10. Stop 20 min at motorway services for diaper/nurse. Check in Lammwirt ~17:00',
-          he: 'נסיעה שעתיים לגרוסרל ב־A8/A10. עצירת 20 דק׳ בתחנת שירות להחלפה/האכלה. צ׳ק־אין ב־Lammwirt ~17:00'
+          en: 'Down by 13:00 → nap at the hotel (5 min away). This is the best "short leash" day — you can bail home any time.',
+          he: 'ירידה עד 13:00 → שנ״צ במלון (5 דק׳). זה יום ה"רצועה הקצרה" הכי טוב — אפשר לחזור הביתה בכל רגע.'
         },
         note: {
-          en: 'Gentlest arrival day after flight. Skip ferry if kids are fried.',
-          he: 'יום הגעה הכי עדין אחרי טיסה. לוותר על מעבורת אם הילדים מותשים.'
+          en: 'Carrier day, not stroller — the top station paths are gravel. Check the Großarltal card: the gondola is often included with your hotel stay.',
+          he: 'יום מנשא ולא עגלה — השבילים למעלה חצץ. לבדוק את כרטיס Großarltal: הרכבל לרוב כלול בשהייה במלון.'
+        }
+      },
+      {
+        id: 'G14', base: 'grossarl', weather: 'sunny',
+        types: ['cable', 'water', 'playground', 'nature', 'food'],
+        stroller: false, nap: true,
+        mapQuery: 'Papageno Bahn Filzmoos',
+        title: { en: 'Papageno Bahn Filzmoos — gondola + mountain water playground', he: 'רכבל פילצמוס (Papageno) — גונדולה + משחקי מים בהר' },
+        drive: { en: '45–50 min to Filzmoos', he: '45–50 דק׳ לפילצמוס' },
+        destination: { en: 'Papageno Bahn, Neuberg 105, 5532 Filzmoos', he: 'Papageno Bahn, Neuberg 105, 5532 Filzmoos' },
+        morning: {
+          en: 'Leave 8:30. Papageno is a closed gondola (no chairlift) up to a genuinely toddler-shaped mountain — this is the "Bibi & Bina" adventure world.',
+          he: 'לצאת 8:30. Papageno היא גונדולה סגורה (לא כיסא) להר שבנוי באמת לפעוטות — עולם ההרפתקאות "Bibi & Bina".'
+        },
+        activities: {
+          en: [
+            'Closed gondola up — big windows, 1yr in carrier',
+            'Water play stations at the top: dams, channels, pumps (bring a spare outfit for both kids)',
+            'Wooden play houses and a small animal corner',
+            'Flat pram-width path between the play stations near the top station'
+          ],
+          he: [
+            'עלייה בגונדולה סגורה — חלונות גדולים, הקטנה במנשא',
+            'תחנות משחקי מים למעלה: סכרים, תעלות ומשאבות (להביא חילוף לשני הילדים)',
+            'בתי משחק מעץ ופינת חיות קטנה',
+            'שביל שטוח ברוחב עגלה בין תחנות המשחק ליד התחנה העליונה'
+          ]
+        },
+        lunch: {
+          en: 'Mountain restaurant at the top — big sun terrace, Kaiserschmarrn (ask for vanilla sauce, not jam)',
+          he: 'מסעדת ההר למעלה — מרפסת שמש גדולה, קייזרשמרן (לבקש רוטב וניל במקום ריבה)'
+        },
+        afternoon: {
+          en: 'Down ~14:00, nap in the car on the 45 min drive back. Filzmoos village has a nice free playground if you need 20 more minutes.',
+          he: 'ירידה ~14:00, שנ״צ ברכב בדרך חזרה של 45 דק׳. בכפר פילצמוס יש גן שעשועים חינם אם צריך עוד 20 דק׳.'
+        },
+        note: {
+          en: 'Water play means wet kids — this is a warm-day-only plan. Cold or windy day: swap for Alpentherme (G6).',
+          he: 'משחקי מים = ילדים רטובים — מתאים רק ליום חם. יום קר או עם רוח: להחליף באלפנתרמה (G6).'
+        }
+      },
+      {
+        id: 'G15', base: 'grossarl', weather: 'sunny',
+        types: ['animals', 'nature', 'playground', 'food'],
+        stroller: true, nap: true,
+        mapQuery: 'Wild- und Freizeitpark Untertauern',
+        title: { en: 'Wild- & Freizeitpark Untertauern — free animal + play park', he: 'Wild- & Freizeitpark אונטרטאוארן — פארק חיות ומשחקים חינם' },
+        drive: { en: '45 min via Wagrain / Radstadt', he: '45 דק׳ דרך ואגריין / ראדשטאט' },
+        destination: { en: 'Wild- und Freizeitpark, 5561 Untertauern', he: 'Wild- und Freizeitpark, 5561 Untertauern' },
+        morning: {
+          en: 'Repeatedly called the best value stop in the area by families — free entry, spotless, deer and goats you can walk right up to.',
+          he: 'מוגדר שוב ושוב בפוסטים כעצירה הכי משתלמת באזור — כניסה חינם, נקי להפליא, איילים ועיזים שאפשר להתקרב אליהם.'
+        },
+        activities: {
+          en: [
+            'Walk the enclosure loop — deer, goats, ponies, feed pellets on site',
+            'Large wooden play area (better for the 3½ yr; grass patches for the baby)',
+            'Stream running through the park for stone-throwing',
+            'Shaded picnic tables — good backup if the restaurant is busy'
+          ],
+          he: [
+            'הקפת המכלאות — איילים, עיזים, פונים, כופתיות האכלה במקום',
+            'אזור משחקים גדול מעץ (מעולה לבן 3½; משטחי דשא לתינוקת)',
+            'נחל שעובר בפארק לזריקת אבנים',
+            'שולחנות פיקניק בצל — גיבוי טוב אם המסעדה עמוסה'
+          ]
+        },
+        lunch: {
+          en: 'Park restaurant, or picnic from the Flachau supermarket on the way',
+          he: 'מסעדת הפארק, או פיקניק מהסופר בפלאכאו בדרך'
+        },
+        afternoon: {
+          en: 'Combine with Badesee Flachau (15 min) for a swim, or drive straight back for nap',
+          he: 'לשלב עם Badesee Flachau (15 דק׳) לרחצה, או לנסוע ישר חזרה לשנ״צ'
+        },
+        note: {
+          en: 'Free entry, so zero pressure to "get your money\'s worth" — perfect for a day when you don\'t know how the kids will hold up.',
+          he: 'כניסה חינם, אז אין לחץ "להחזיר את הכסף" — מושלם ליום שלא יודעים איך הילדים יחזיקו.'
+        }
+      },
+      {
+        id: 'T1', base: 'transfer', weather: 'sunny',
+        types: ['animals', 'playground', 'nature', 'food'],
+        stroller: true, nap: true,
+        mapQuery: 'BergTierPark Blindham Egmating',
+        title: { en: 'Munich → Grossarl via BergTierPark Blindham (animals)', he: 'מינכן → גרוסרל דרך BergTierPark Blindham (חיות)' },
+        drive: { en: 'MUC → Blindham 40 min, +2.5 hr to Grossarl', he: 'מינכן → בלינדהאם 40 דק׳, +2.5 ש׳ לגרוסרל' },
+        destination: { en: 'BergTierPark Blindham, 85658 Egmating', he: 'BergTierPark Blindham, 85658 Egmating' },
+        morning: {
+          en: 'Pick up the car and drive 40 min. Animal park in the woods where you feed the animals up close, plus a huge indoor play hall — the one stop that works in any weather.',
+          he: 'לאסוף רכב ולנסוע 40 דק׳. פארק חיות ביער שבו מאכילים חיות מקרוב, ובנוסף אולם משחקים מקורה ענק — העצירה היחידה שעובדת בכל מזג אוויר.'
+        },
+        activities: {
+          en: [
+            'Hand-feed deer, goats and alpacas along a flat gravel loop',
+            'Big covered indoor play hall — lifesaver if you land in rain',
+            'Pram-friendly the whole way round',
+            'Recommended in the trip reports as a perfect first/last day near Munich'
+          ],
+          he: [
+            'האכלה מהיד של איילים, עיזים ואלפקות במסלול שטוח',
+            'אולם משחקים מקורה גדול — מציל את היום אם נוחתים בגשם',
+            'מתאים לעגלה לאורך כל הדרך',
+            'מומלץ בסיכומי הטיולים כיום ראשון/אחרון מושלם ליד מינכן'
+          ]
+        },
+        lunch: {
+          en: 'Park bistro (~€25 for two adults, kids free/cheap)',
+          he: 'ביסטרו בפארק (~€25 לשני מבוגרים, ילדים חינם/זול)'
+        },
+        afternoon: {
+          en: 'Drive 2.5 hr to Grossarl with one services stop. Kids usually sleep the A8/A10 stretch. Check in Lammwirt ~17:00',
+          he: 'נסיעה 2.5 ש׳ לגרוסרל עם עצירת שירות אחת. הילדים בד״כ ישנים בקטע A8/A10. צ׳ק־אין ב־Lammwirt ~17:00'
+        },
+        note: {
+          en: 'Best rainy-arrival option of the three — the indoor hall means you are never stuck.',
+          he: 'האפשרות הכי טובה להגעה בגשם מבין השלוש — האולם המקורה אומר שלא נתקעים.'
         }
       },
       {
         id: 'T2', base: 'transfer', weather: 'sunny',
-        types: ['castle', 'playground', 'food', 'water'],
-        stroller: true, nap: false,
-        mapQuery: 'Hellbrunn Palace Salzburg',
-        title: { en: 'Munich → Grossarl via Hellbrunn Palace', he: 'מינכן → גרוסרל דרך ארמון הלברון' },
-        drive: { en: 'MUC → Hellbrunn 1.5 hr, +1 hr to Grossarl', he: 'מינכן → הלברון 1.5 ש׳, +שעה לגרוסרל' },
-        destination: { en: 'Schloss Hellbrunn, Salzburg', he: 'Schloss Hellbrunn, Salzburg' },
+        types: ['nature', 'water', 'animals', 'food'],
+        stroller: true, nap: true,
+        mapQuery: 'Königssee Schönau am Königssee',
+        title: { en: 'Munich → Grossarl via Königssee (boat on the fjord lake)', he: 'מינכן → גרוסרל דרך קניגסזה (שייט באגם הפיורד)' },
+        drive: { en: 'MUC → Königssee 1.5 hr, +1.5 hr to Grossarl', he: 'מינכן → קניגסזה 1.5 ש׳, +1.5 ש׳ לגרוסרל' },
+        destination: { en: 'Königssee, 83471 Schönau am Königssee', he: 'Königssee, 83471 Schönau am Königssee' },
         morning: {
-          en: 'Drive straight to Hellbrunn (trick fountains — kids love the surprises).',
-          he: 'נסיעה ישר להלברון (מזרקות מפתיעות — הילדים אוהבים).'
+          en: 'Drive straight from the airport. Königssee is the most dramatic nature stop between Munich and Grossarl — emerald water between vertical cliffs.',
+          he: 'נסיעה ישירה מהשדה. קניגסזה היא עצירת הטבע הכי דרמטית בין מינכן לגרוסרל — מים ירוקים בין צוקים אנכיים.'
         },
         activities: {
           en: [
-            'Guided fountain tour (stand where told or get soaked!)',
-            'Palace gardens & hedge maze',
-            'Short drive into Salzburg old town for gelato if energy OK'
+            'Silent electric boat to St. Bartholomä — fully enclosed, seated, ~35 min each way',
+            'The boatman stops mid-lake and plays a trumpet at the echo wall — kids love it',
+            'Flat lakeside walk and ducks at St. Bartholomä',
+            'Stroller-friendly promenade from the car park down to the boat dock'
           ],
           he: [
-            'סיור מזרקות מודרך (לעמוד איפה שאומרים או להירטב!)',
-            'גני הארמון ומבוך גדר חיה',
-            'נסיעה קצרה לעיר העתיקה לגלידה אם יש אנרגיה'
+            'סירה חשמלית שקטה לסנט ברתולומה — סגורה לגמרי, בישיבה, ~35 דק׳ לכיוון',
+            'הקברניט עוצר באמצע האגם ומנגן בחצוצרה אל קיר ההד — הילדים מתים על זה',
+            'הליכה שטוחה על שפת האגם וברווזים בסנט ברתולומה',
+            'טיילת מתאימה לעגלה מהחניון עד למזח'
           ]
         },
         lunch: {
-          en: 'Hellbrunn café or picnic in gardens',
-          he: 'קפה בהלברון או פיקניק בגנים'
+          en: 'Fish restaurant at St. Bartholomä, or the cafés along the walk up from the dock',
+          he: 'מסעדת דגים בסנט ברתולומה, או בתי הקפה בדרך למזח'
         },
         afternoon: {
-          en: '45 min to Grossarl via A10. Luggage at hotel, early night',
-          he: '45 דק׳ לגרוסרל ב־A10. מזוודות במלון, שינה מוקדמת'
+          en: 'Back on the boat ~14:00, then 1.5 hr to Grossarl. Arrive Lammwirt ~17:00',
+          he: 'חזרה בסירה ~14:00, ואז 1.5 ש׳ לגרוסרל. הגעה ל־Lammwirt ~17:00'
         },
         note: {
-          en: 'Blog favorite for families. Fountains best on warm days.',
-          he: 'אהוב מהפוסטים למשפחות. המזרקות הכי כיפיות ביום חם.'
+          en: 'Arrive before 10:00 — the car park fills and the boat queue gets long. Round trip is ~2.5 hr, so this is a full-morning commitment.',
+          he: 'להגיע לפני 10:00 — החניון מתמלא והתור לסירה מתארך. הלוך-חזור ~2.5 ש׳, אז זו התחייבות לבוקר שלם.'
         }
       },
       {
         id: 'T3', base: 'transfer', weather: 'sunny',
-        types: ['animals', 'nature', 'food'],
+        types: ['playground', 'animals', 'nature', 'food'],
         stroller: true, nap: true,
-        mapQuery: 'Erlebnispark Buching Steinen',
-        title: { en: 'Munich → Grossarl via Erlebnispark Buching', he: 'מינכן → גרוסרל דרך Erlebnispark Buching' },
-        drive: { en: 'MUC → Buching 1 hr, +2.5 hr to Grossarl', he: 'מינכן → בוכינג שעה, +2.5 ש׳ לגרוסרל' },
-        destination: { en: 'Erlebnispark Buching, Steinen', he: 'Erlebnispark Buching, Steinen' },
+        mapQuery: 'Märchenpark Freizeitpark Ruhpolding',
+        title: { en: 'Munich → Grossarl via Freizeitpark Ruhpolding (toddler park)', he: 'מינכן → גרוסרל דרך Freizeitpark Ruhpolding (פארק לקטנטנים)' },
+        drive: { en: 'MUC → Ruhpolding 1 hr 15, +2 hr to Grossarl', he: 'מינכן → רופולדינג 1:15, +שעתיים לגרוסרל' },
+        destination: { en: 'Märchen- & Freizeitpark, 83324 Ruhpolding', he: 'Märchen- & Freizeitpark, 83324 Ruhpolding' },
         morning: {
-          en: 'Forest adventure park between Munich & Alps — climbing nets low to ground, animals.',
-          he: 'פארק הרפתקאות ביער בין מינכן לאלפים — רשתות טיפוס נמוכות וחיות.'
+          en: 'Old-school fairytale + amusement park built for exactly your age range — almost every ride is 0–8 yrs, nothing scary or high.',
+          he: 'פארק אגדות ושעשועים בסגנון ישן שבנוי בדיוק לגילאים שלכם — כמעט כל המתקנים 0–8, שום דבר מפחיד או גבוה.'
         },
         activities: {
           en: [
-            'Treetop paths at kid height',
-            'Animal enclosures',
-            'Café on site'
+            'Small train, boat ride and carousels the 3½ yr can do alone or with one adult',
+            'Fairytale houses along a shaded forest path — good pram walking',
+            'Petting animals and a big meadow play area',
+            'Summer toboggan run on the site for the grown-ups'
           ],
           he: [
-            'שבילי עצים בגובה ילדים',
-            'מכלאות חיות',
-            'בית קפה במקום'
+            'רכבת קטנה, שייט וקרוסלות שבן 3½ יכול לעשות לבד או עם מבוגר',
+            'בתי אגדות לאורך שביל יער מוצל — הליכה נוחה עם עגלה',
+            'ליטוף חיות ואחו משחקים גדול',
+            'מגלשת קיץ במקום למבוגרים'
           ]
         },
         lunch: {
-          en: 'Park restaurant',
-          he: 'מסעדת הפארק'
+          en: 'Park restaurant / Biergarten with kids menu',
+          he: 'מסעדת הפארק / ביר-גארטן עם תפריט ילדים'
         },
         afternoon: {
-          en: 'Longer drive to Grossarl — plan one motorway break. DVD/tablet time OK on transfer day',
-          he: 'נסיעה ארוכה יותר לגרוסרל — לתכנן עצירת כביש מהיר. מסך/טאבלט בסדר ביום מעבר'
+          en: 'Leave ~14:30, 2 hr to Grossarl via Salzburg. Check in Lammwirt ~17:00',
+          he: 'לצאת ~14:30, שעתיים לגרוסרל דרך זלצבורג. צ׳ק־אין ב־Lammwirt ~17:00'
         },
         note: {
-          en: 'Splits the 3+ hr haul from Munich. Alternative: Wildpark Poing near Munich (30 min from airport).',
-          he: 'שוברת את נסיעת 3+ השעות ממינכן. חלופה: Wildpark Poing ליד מינכן (30 דק׳ משדה התעופה).'
+          en: 'The most "kid-currency" arrival day — buys you goodwill for the quieter nature days that follow.',
+          he: 'יום ההגעה עם הכי הרבה "מטבע ילדים" — קונה קרדיט לימי הטבע השקטים שאחריו.'
         }
       },
       {
         id: 'T4', base: 'transfer', weather: 'sunny',
-        types: ['water', 'food', 'castle'],
-        stroller: true, nap: true,
-        mapQuery: 'Mondsee Austria',
-        title: { en: 'Grossarl → Wolfgangsee via Mondsee lunch', he: 'גרוסרל → וולפגנגזה דרך צהריים במונדזה' },
-        drive: { en: '1 hr 45 total (45 min to Mondsee + 1 hr to Bachmanngut)', he: 'סה״כ כ־1:45 (45 דק׳ למונדזה + שעה ל־Bachmanngut)' },
-        destination: { en: 'Mondsee → St. Wolfgang', he: 'מונדזה → סנט וולפגנג' },
+        types: ['nature', 'water', 'food'],
+        stroller: false, nap: true,
+        mapQuery: 'Gollinger Wasserfall Golling an der Salzach',
+        title: { en: 'Grossarl → Wolfgangsee via Golling waterfall + Bluntausee', he: 'גרוסרל → וולפגנגזה דרך מפלי גולינג + Bluntausee' },
+        drive: { en: '35 min to Golling, +1 hr 15 to Bachmanngut', he: '35 דק׳ לגולינג, +1:15 ל־Bachmanngut' },
+        destination: { en: 'Gollinger Wasserfall, 5440 Golling an der Salzach', he: 'Gollinger Wasserfall, 5440 Golling an der Salzach' },
         morning: {
-          en: 'Check out Lammwirt ~9:00. Drive 45 min to Mondsee church & lake.',
-          he: 'צ׳ק־אאוט מ־Lammwirt ~9:00. נסיעה 45 דק׳ לכנסייה ולאגם מונדזה.'
+          en: 'Check out ~9:00 and drive 35 min. Golling is the waterfall the trip reports keep recommending — you can go as far up as the kids allow and turn back.',
+          he: 'צ׳ק־אאוט ~9:00 ונסיעה 35 דק׳. גולינג הוא המפל שחוזר שוב ושוב בסיכומי הטיולים — עולים כמה שהילדים מרשים ומסתובבים חזרה.'
         },
         activities: {
           en: [
-            'Sound of Music church visit',
-            'Lakeside runaround',
-            'SeeCafé terrace brunch'
+            'Lower falls are only ~10 min from the car park — that alone is worth the stop',
+            'Upper viewpoint another 15 min of steps (carrier needed, no stroller)',
+            'Then 10 min to Bluntausee — two shallow turquoise lakes with a flat shore path',
+            'Park at the Bluntausee lot itself, not the far one, or it turns into a 40 min walk'
           ],
           he: [
-            'ביקור בכנסיית צלילי המוזיקה',
-            'ריצה על שפת האגם',
-            'בראנץ׳ במרפסת SeeCafé'
+            'המפל התחתון במרחק ~10 דק׳ מהחניון בלבד — כבר שווה את העצירה',
+            'התצפית העליונה עוד 15 דק׳ מדרגות (צריך מנשא, לא עגלה)',
+            'אחר כך 10 דק׳ ל־Bluntausee — שני אגמים רדודים טורקיז עם שביל חוף שטוח',
+            'לחנות בחניון של Bluntausee עצמו ולא ברחוק, אחרת זה הופך להליכה של 40 דק׳'
           ]
         },
         lunch: {
-          en: "Mondsee SeeCafé (blog's farewell favorite)",
-          he: 'Mondsee SeeCafé (אהוב פרידה מהפוסט)'
+          en: 'Gasthof in Golling village, or picnic on the Bluntausee grass',
+          he: 'גסטהוף בכפר גולינג, או פיקניק על הדשא של Bluntausee'
         },
         afternoon: {
-          en: 'Drive 1 hr to Bachmanngut. Unpack, explore hotel farm, early swim',
-          he: 'נסיעה שעה ל־Bachmanngut. לפרוק, לסייר בחווה במלון, שחייה מוקדמת'
+          en: 'Drive 1 hr 15 to Bachmanngut — kids nap the whole way. Unpack, meet the farm animals, early swim',
+          he: 'נסיעה 1:15 ל־Bachmanngut — הילדים ישנים כל הדרך. לפרוק, להכיר את חיות החווה, שחייה מוקדמת'
         },
         note: {
-          en: 'Natural transfer day — doubles as L4 if you skip it later.',
-          he: 'יום מעבר טבעי — מחליף את L4 אם מדלגים עליו אחר כך.'
+          en: 'Carrier day for the waterfall, stroller fine at Bluntausee. Included in the SalzburgerLand card.',
+          he: 'יום מנשא למפל, עגלה בסדר ב־Bluntausee. כלול בכרטיס SalzburgerLand.'
         }
       },
       {
         id: 'T5', base: 'transfer', weather: 'sunny',
-        types: ['nature', 'water', 'food'],
+        types: ['animals', 'nature', 'playground', 'food'],
         stroller: true, nap: true,
-        mapQuery: 'Vorderer Gosausee Austria',
-        title: { en: 'Grossarl → Wolfgangsee via Gosausee', he: 'גרוסרל → וולפגנגזה דרך גוסאוזה' },
-        drive: { en: '2 hr total with stop', he: 'כשעתיים כולל עצירה' },
-        destination: { en: 'Gosausee then Bachmanngut', he: 'גוסאוזה ואז Bachmanngut' },
+        mapQuery: 'Gut Aiderbichl Henndorf am Wallersee',
+        title: { en: 'Grossarl → Wolfgangsee via Gut Aiderbichl (rescue animal farm)', he: 'גרוסרל → וולפגנגזה דרך Gut Aiderbichl (חוות חיות מוצלות)' },
+        drive: { en: '1 hr 10 to Henndorf, +30 min to Bachmanngut', he: '1:10 להנדורף, +30 דק׳ ל־Bachmanngut' },
+        destination: { en: 'Gut Aiderbichl, Berg 20, 5302 Henndorf am Wallersee', he: 'Gut Aiderbichl, Berg 20, 5302 Henndorf am Wallersee' },
         morning: {
-          en: 'Leave early. 1 hr to Gosausee — do the flat lake loop before crowds.',
-          he: 'לצאת מוקדם. שעה לגוסאוזה — להקיף את האגם לפני ההמונים.'
+          en: 'Check out and drive 1 hr 10. A rescue farm, not a zoo — animals roam and come to you, which is exactly what works at 1 and 3½.',
+          he: 'צ׳ק־אאוט ונסיעה 1:10. חוות הצלה ולא גן חיות — החיות מסתובבות חופשי ומגיעות אליכם, וזה בדיוק מה שעובד בגיל שנה ו־3½.'
         },
         activities: {
           en: [
-            '2 km stroller loop',
-            'Mountain photos',
-            'Snack at trail hut'
+            'Horses, donkeys, pigs, goats and cats wandering the grounds',
+            'Flat wide gravel paths — genuinely stroller-friendly, unusual for a farm',
+            'Play area and lots of shaded grass to put the baby down on',
+            'Described in trip reports as "a really sweet farm, recommended"'
           ],
           he: [
-            'הקפה של 2 ק״מ לעגלה',
-            'תמונות הרים',
-            'חטיף בבקתת השביל'
+            'סוסים, חמורים, חזירים, עיזים וחתולים מסתובבים בשטח',
+            'שבילי חצץ רחבים ושטוחים — באמת מתאים לעגלה, נדיר בחווה',
+            'אזור משחקים והרבה דשא מוצל להניח את התינוקת',
+            'מתואר בסיכומי הטיולים כ"חווה מתוקה ממש, מומלץ"'
           ]
         },
         lunch: {
-          en: 'Packed lunch at Gosausee or Bad Ischl bakery stop',
-          he: 'ארוחה ארוזה בגוסאוזה או עצירת מאפייה בבאד אישל'
+          en: 'Farm café on site (simple, kid-friendly)',
+          he: 'בית קפה בחווה (פשוט, ידידותי לילדים)'
         },
         afternoon: {
-          en: '50 min to Bachmanngut. Kids nap in car',
-          he: '50 דק׳ ל־Bachmanngut. שנ״צ ברכב'
+          en: 'Only 30 min left to Bachmanngut — easiest transfer of them all. Arrive early enough for the hotel pool',
+          he: 'נשארו רק 30 דק׳ ל־Bachmanngut — יום המעבר הכי קל מכולם. מגיעים מוקדם מספיק לבריכה במלון'
         },
         note: {
-          en: 'Scenic transfer — best if weather is clear on moving day.',
-          he: 'מעבר נופי — הכי טוב אם מזג האוויר בהיר ביום המעבר.'
+          en: 'The SalzburgerLand card only gives a small discount here, not free entry. Shortest total drive of the transfer options.',
+          he: 'כרטיס SalzburgerLand נותן פה רק הנחה קטנה, לא כניסה חינם. הנסיעה הכוללת הכי קצרה מבין ימי המעבר.'
         }
       },
       {
         id: 'T6', base: 'transfer', weather: 'sunny',
-        types: ['food', 'playground'],
+        types: ['animals', 'water', 'playground', 'nature'],
         stroller: true, nap: true,
-        mapQuery: 'Designer Outlet Parndorf Austria',
-        title: { en: 'Wolfgangsee → Munich via Chiemsee or Outlet', he: 'וולפגנגזה → מינכן דרך קימזה או אאוטלט' },
-        drive: { en: '2–2.5 hr to MUC area', he: '2–2.5 ש׳ לאזור מינכן' },
-        destination: { en: 'Chiemsee or Designer Outlet Parndorf', he: 'קימזה או Designer Outlet Parndorf' },
+        mapQuery: 'BergTierPark Blindham Egmating',
+        title: { en: 'Wolfgangsee → Munich via animals or Chiemsee', he: 'וולפגנגזה → מינכן דרך חיות או קימזה' },
+        drive: { en: '2–2.5 hr total to MUC', he: '2–2.5 ש׳ סה״כ למינכן' },
+        destination: { en: 'BergTierPark Blindham or Chiemsee Prien', he: 'BergTierPark Blindham או קימזה פריאן' },
         morning: {
-          en: 'Check out, drive toward Munich. Option A: Chiemsee splash & lunch (1 hr from lakes).',
-          he: 'צ׳ק־אאוט ונסיעה לכיוון מינכן. אפשרות א׳: קימזה לרחצה וצהריים (שעה מהאגמים).'
+          en: 'Check out and drive toward Munich. Pick the stop by weather — animals if it is grey, lake if it is warm.',
+          he: 'צ׳ק־אאוט ונסיעה לכיוון מינכן. לבחור עצירה לפי מזג האוויר — חיות אם אפור, אגם אם חם.'
         },
         activities: {
           en: [
-            'Option A: Chiemsee beach repeat',
-            'Option B: Parndorf designer outlet — playground at food court (blog tip)',
-            'Return rental at MUC or hotel drop'
+            'Rainy: BergTierPark Blindham — animals plus the big indoor play hall, 40 min from the airport',
+            'Warm: Chiemsee at Prien — shallow shore, boats to watch, harbour playground',
+            'Both are pram-friendly and need no tickets booked in advance',
+            'Keep one bag with snacks and a change of clothes out of the boot'
           ],
           he: [
-            'אפשרות א׳: חזרה לחוף קימזה',
-            'אפשרות ב׳: אאוטלט פרנדורף — גן שעשועים ליד אזור האוכל (טיפ מהפוסט)',
-            'החזרת רכב במינכן או במלון'
+            'גשום: BergTierPark Blindham — חיות + אולם משחקים מקורה גדול, 40 דק׳ מהשדה',
+            'חם: קימזה בפריאן — חוף רדוד, סירות לצפייה, גן שעשועים בנמל',
+            'שניהם מתאימים לעגלה ולא דורשים כרטיסים מראש',
+            'לשמור תיק אחד עם חטיפים והחלפה מחוץ לתא המטען'
           ]
         },
         lunch: {
-          en: 'Chiemsee café or outlet food court',
-          he: 'קפה בקימזה או אזור אוכל באאוטלט'
+          en: 'Park bistro or Prien lakeside café',
+          he: 'ביסטרו בפארק או קפה על האגם בפריאן'
         },
         afternoon: {
-          en: 'Short hop to airport hotel if flying next morning',
-          he: 'קפיצה קצרה למלון שדה תעופה אם טסים למחרת'
+          en: 'Return the rental at MUC or drop at the airport hotel if flying next morning',
+          he: 'החזרת הרכב במינכן או ירידה במלון השדה אם טסים למחרת בבוקר'
         },
         note: {
-          en: "Don't over-pack last day — keep a stroller accessible until gate.",
-          he: 'לא לארוז יותר מדי ביום האחרון — לשמור עגלה נגישה עד השער.'
+          en: 'Keep a stroller accessible until the gate — trip reports warn the gate-checked strollers can come out with the suitcases.',
+          he: 'לשמור עגלה נגישה עד השער — בסיכומי הטיולים מזהירים שעגלות שנמסרו בשער עלולות לצאת עם המזוודות.'
         }
       }
     ];
+
+    const BASE_ORDER = { grossarl: 0, lakes: 1, transfer: 2 };
+    days.sort((a, b) => (BASE_ORDER[a.base] ?? 9) - (BASE_ORDER[b.base] ?? 9));
 
     function mapsUrl(query) {
       return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
@@ -3871,6 +4006,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
       });
 
       document.getElementById('kpiVisible').textContent = visible;
+      document.getElementById('kpiGrossarl').textContent = days.filter(d => d.base === 'grossarl').length;
+      document.getElementById('kpiLakes').textContent = days.filter(d => d.base === 'lakes').length;
+      document.getElementById('kpiTransfer').textContent = days.filter(d => d.base === 'transfer').length;
       document.getElementById('emptyState').classList.toggle('visible', visible === 0 && currentView === 'cards');
       document.getElementById('sectionTitle').textContent = u.sectionTitles[base] || u.sectionTitles.all;
 
