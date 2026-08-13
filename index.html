@@ -788,6 +788,7 @@
     }
 
     .poi-marker.restaurant { background: #C45C26; }
+    .poi-marker.farm { background: #8B6914; }
     .poi-marker.playground { background: #2E8B57; }
 
     .day-marker {
@@ -1207,6 +1208,10 @@
             <label class="map-poi-toggle">
               <input type="checkbox" id="toggleRestaurants">
               <span id="toggleRestaurantsLabel"></span>
+            </label>
+            <label class="map-poi-toggle">
+              <input type="checkbox" id="toggleFarms">
+              <span id="toggleFarmsLabel"></span>
             </label>
             <label class="map-poi-toggle">
               <input type="checkbox" id="togglePlaygrounds">
@@ -1972,7 +1977,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
         tabCards: 'Day cards',
         tabMap: 'Map',
         mapSelectTitle: 'Show days on map',
-        mapHelp: 'Hotels are always shown. Select days below. Tap/click a marker for a wide info card. Toggle restaurants and playgrounds.',
+        mapHelp: 'Hotels are always shown. Select days below. Tap/click a marker for a wide info card. Toggle restaurants, farms/Almhütten and playgrounds.',
         mapSelectFiltered: 'Select filtered',
         mapClearDays: 'Clear days',
         mapDriveFrom: 'Drive from previous',
@@ -1984,7 +1989,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
         mapRetry: 'Retry',
         mapTilesBlocked: 'Map background tiles are blocked on this network — the day markers below still work.',
         mapPoiTitle: 'Map layers',
-        mapShowRestaurants: 'Restaurants (4.2+ Google, 100+ reviews)',
+        mapShowRestaurants: 'Restaurants (Google-rated)',
+        mapShowFarms: 'Farms / Almhütten (Jause + kids space)',
         mapShowPlaygrounds: 'Children\'s playgrounds',
         mapRestaurantRating: 'Google rating',
         mapRestaurantReviews: 'reviews',
@@ -2065,7 +2071,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
         tabCards: 'כרטיסי ימים',
         tabMap: 'מפה',
         mapSelectTitle: 'הצגת ימים על המפה',
-        mapHelp: 'המלונות תמיד מוצגים. בחרו ימים למטה. לחצו על נקודה לכרטיס מידע רחב. אפשר להדליק/לכבות מסעדות וגני שעשועים.',
+        mapHelp: 'המלונות תמיד מוצגים. בחרו ימים למטה. לחצו על נקודה לכרטיס מידע רחב. אפשר להדליק/לכבות מסעדות, חוות/אלמהיטן וגני שעשועים.',
         mapSelectFiltered: 'בחר מסוננים',
         mapClearDays: 'נקה ימים',
         mapDriveFrom: 'נסיעה מהמקום הקודם',
@@ -2077,7 +2083,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
         mapRetry: 'נסו שוב',
         mapTilesBlocked: 'רקע המפה חסום ברשת הזו — סימוני הימים עדיין עובדים.',
         mapPoiTitle: 'שכבות במפה',
-        mapShowRestaurants: 'מסעדות (4.2+ בגוגל, 100+ ביקורות)',
+        mapShowRestaurants: 'מסעדות (דירוג גוגל)',
+        mapShowFarms: 'חוות / אלמהיטן (יאוזה + פינת ילדים)',
         mapShowPlaygrounds: 'גני שעשועים לילדים',
         mapRestaurantRating: 'דירוג גוגל',
         mapRestaurantReviews: 'ביקורות',
@@ -2187,26 +2194,30 @@ svg.leaflet-image-layer.leaflet-interactive path {
           && window.matchMedia('(max-width: 768px)').matches);
     const RESTAURANTS = [
       // —— Grossarl / Lammwirt base ——
-      { id: 'r-loos', base: 'grossarl', lat: 47.2348, lng: 13.2012, rating: 4.5, reviews: 1790,
-        name: { en: 'Rodelbahn Loosbühelalm', he: 'רודלבאן לוסביהלאלם' },
-        address: { en: 'Kleinarlstraße 77, 5611 Großarl', he: 'Kleinarlstraße 77, 5611 Großarl' },
-        note: { en: 'Alpine hut with rodel run, playground & regional food', he: 'בקתה אלפינית עם מגלשת, מתקן משחקים ואוכל מקומי' } },
       { id: 'r-jaeger', base: 'grossarl', lat: 47.1853, lng: 13.1689, rating: 4.5, reviews: 1373,
         name: { en: 'Gasthaus Jägersee', he: 'גסטהאוס יאגרזה' },
         address: { en: 'Jägersee 1, 5601 Kleinarl', he: 'Jägersee 1, 5601 Kleinarl' },
         note: { en: 'Lake-side inn — after Jägersee hike', he: 'פונדק על האגם — אחרי טיול ליאגרזה' } },
-      { id: 'r-schatz', base: 'grossarl', lat: 47.2397, lng: 13.2015, rating: 4.4, reviews: 520,
+      { id: 'r-schatz', base: 'grossarl', lat: 47.2397, lng: 13.2015, rating: 4.6, reviews: 75,
         name: { en: 'Die Schatzarei im Tauernhof', he: 'דיה שאצאריי בטאורנהוף' },
         address: { en: 'Unterbergstraße 55, 5611 Großarl', he: 'Unterbergstraße 55, 5611 Großarl' },
-        note: { en: 'Family-friendly regional kitchen in Großarl', he: 'מטבח אזורי משפחתי בגרוסרל' } },
-      { id: 'r-rohrer', base: 'grossarl', lat: 47.2378, lng: 13.2005, rating: 4.5, reviews: 733,
+        note: { en: 'Modern regional kitchen — Tafelspitz recommended', he: 'מטבח אזורי מודרני — טאפלשפיץ מומלץ' } },
+      { id: 'r-rohrer', base: 'grossarl', lat: 47.2378, lng: 13.2005, rating: 4.7, reviews: 355,
         name: { en: 'Rohrerwirt', he: 'רוהררווירט' },
         address: { en: 'Marktplatz 6, 5611 Großarl', he: 'Marktplatz 6, 5611 Großarl' },
-        note: { en: 'Village inn — fondue evenings, kids welcome', he: 'פונדק בכפר — ערבי פונדו, ידידותי לילדים' } },
-      { id: 'r-gehwolf', base: 'grossarl', lat: 47.2425, lng: 13.1950, rating: 4.5, reviews: 386,
-        name: { en: 'Gehwolfalm', he: 'גהוולף אלם' },
-        address: { en: 'Kreuzberg 35, 5611 Großarl', he: 'Kreuzberg 35, 5611 Großarl' },
-        note: { en: 'Hut with outdoor playground — Käsespätzle & Kaiserschmarrn', he: 'בקתה עם מתקן משחקים — קזהשפצל וקייזרשמרן' } },
+        note: { en: 'Traditional village inn — gluten-free options, kids welcome', he: 'פונדק מסורתי בכפר — אפשרויות ללא גלוטן, ידידותי לילדים' } },
+      { id: 'r-aschau', base: 'grossarl', lat: 47.1602, lng: 13.2783, rating: 4.7, reviews: 405,
+        name: { en: 'Aschaustüberl (Hüttschlag)', he: 'אשאושטובּרל (היטשלאג)' },
+        address: { en: 'Karteis 24, 5612 Hüttschlag', he: 'Karteis 24, 5612 Hüttschlag' },
+        note: { en: 'Explicitly kid-friendly per reviews — garden & play space', he: 'ידידותי לילדים לפי ביקורות — גינה ופינת משחק' } },
+      { id: 'r-schuetzen', base: 'grossarl', lat: 47.2385, lng: 13.1933, rating: 4.7, reviews: 316,
+        name: { en: 'Gasthof Schützenhof', he: 'גסטהוף שיצנהוף' },
+        address: { en: 'Bergstraße 5, 5611 Großarl', he: 'Bergstraße 5, 5611 Großarl' },
+        note: { en: 'Games for kids — praised for handling spills/chaos gracefully', he: 'משחקים לילדים — מקבלים בשלווה שפיכות וכאוס' } },
+      { id: 'r-alpenklang', base: 'grossarl', lat: 47.2779, lng: 13.2078, rating: 4.9, reviews: 506,
+        name: { en: 'Berghotel Alpenklang', he: 'ברגהוטל אלפנקלאנג' },
+        address: { en: 'Schiedweg 47, 5611 Großarl', he: 'Schiedweg 47, 5611 Großarl' },
+        note: { en: 'Will make kid-sized portions — quiet hillside hotel restaurant', he: 'מכינים מנות בגודל ילדים — מסעדת מלון שקטה על המדרון' } },
       { id: 'r-hoamat', base: 'grossarl', lat: 47.2360, lng: 13.1988, rating: 4.4, reviews: 310,
         name: { en: 'Hoamat 78 (Edelweiss)', he: 'הומאט 78 (אדלווייס)' },
         address: { en: 'Unterbergstraße 75, 5611 Großarl', he: 'Unterbergstraße 75, 5611 Großarl' },
@@ -2253,10 +2264,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
         note: { en: 'Country inn near Werfen — family portions', he: 'פונדק כפרי ליד ורפן — מנות משפחתיות' } },
 
       // —— Wolfgangsee / Bachmanngut base ——
-      { id: 'r-dorfalm', base: 'lakes', lat: 47.7385, lng: 13.4468, rating: 4.5, reviews: 1916,
+      { id: 'r-dorfalm', base: 'lakes', lat: 47.7385, lng: 13.4468, rating: 4.5, reviews: 2886,
         name: { en: 'Dorf-Alm zu St. Wolfgang', he: 'דורף-אלם סנט וולפגנג' },
         address: { en: 'Markt 123, 5360 St. Wolfgang', he: 'Markt 123, 5360 St. Wolfgang' },
-        note: { en: 'Iconic lakeside alm — schnitzel & views', he: 'אלם אגמי אייקוני — שניצל ונוף' } },
+        note: { en: 'Solid classics — touristy but well-reviewed (huge sample)', he: 'קלאסיקות מוצקות — תיירותי אבל מדורג היטב (מדגם ענק)' } },
+      { id: 'r-seeplatzl', base: 'lakes', lat: 47.7395, lng: 13.4482, rating: 4.6, reviews: 150,
+        name: { en: 'SEEplatzl', he: 'זיפלאצל' },
+        address: { en: 'Markt / Seepromenade, 5360 St. Wolfgang', he: 'Markt / Seepromenade, 5360 St. Wolfgang' },
+        note: { en: 'Best burgers per reviewers — lake view', he: 'ההמבורגרים הכי טובים לפי ביקורות — נוף לאגם' } },
+      { id: 'r-post', base: 'lakes', lat: 47.7392, lng: 13.4400, rating: 4.5, reviews: 640,
+        name: { en: 'Gasthof zur Post', he: 'גסטהוף צור פוסט' },
+        address: { en: 'Markt 35, 5360 St. Wolfgang', he: 'Markt 35, 5360 St. Wolfgang' },
+        note: { en: 'Solid, central, family-run', he: 'מוצק, מרכזי, משפחתי' } },
       { id: 'r-paul', base: 'lakes', lat: 47.7398, lng: 13.4475, rating: 4.3, reviews: 1200,
         name: { en: 'PAUL der Wirt', he: 'פאול דר ווירט' },
         address: { en: 'Markt 54, 5360 St. Wolfgang', he: 'Markt 54, 5360 St. Wolfgang' },
@@ -2293,14 +2312,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
         name: { en: 'dSpeis Genussaufnahmestube', he: 'דספייס' },
         address: { en: 'Au 36, 5360 St. Wolfgang', he: 'Au 36, 5360 St. Wolfgang' },
         note: { en: 'Near Bachmanngut — local modern kitchen', he: 'ליד באכמנגוט — מטבח מקומי מודרני' } },
-      { id: 'r-dorner', base: 'lakes', lat: 47.7150, lng: 13.4280, rating: 4.7, reviews: 326,
+      { id: 'r-dorner', base: 'lakes', lat: 47.7150, lng: 13.4280, rating: 4.8, reviews: 360,
         name: { en: 'Jausenstation Dornerhof', he: 'יאוזנסטציון דורנהוף' },
         address: { en: 'Dornerweg 10, 5350 Strobl', he: 'Dornerweg 10, 5350 Strobl' },
-        note: { en: 'Farm snack station — great with kids', he: 'תחנת חטיפים בחווה — מעולה עם ילדים' } },
-      { id: 'r-aschinger', base: 'lakes', lat: 47.7355, lng: 13.4550, rating: 4.5, reviews: 260,
+        note: { en: 'Great platters; one review flags cool service toward tourists', he: 'מגשים מעולים; ביקורת אחת מציינת שירות קריר לתיירים' } },
+      { id: 'r-aschinger', base: 'lakes', lat: 47.7355, lng: 13.4550, rating: 4.7, reviews: 499,
         name: { en: 'Jausenstation Aschinger', he: 'יאוזנסטציון אשינגר' },
         address: { en: 'Aschingerweg, 5360 St. Wolfgang', he: 'Aschingerweg, 5360 St. Wolfgang' },
-        note: { en: 'Garden snack hut above the village', he: 'בקתה עם גינה מעל הכפר' } },
+        note: { en: "Kids' paradise — big garden and toys", he: 'גן עדן לילדים — גינה גדולה וצעצועים' } },
       { id: 'r-gilgen', base: 'lakes', lat: 47.7665, lng: 13.3655, rating: 4.4, reviews: 720,
         name: { en: 'Restaurant Bootshaus St. Gilgen', he: 'בוטסהאוס סנט גילגן' },
         address: { en: 'Ischler Straße 15, 5340 St. Gilgen', he: 'Ischler Straße 15, 5340 St. Gilgen' },
@@ -2337,6 +2356,56 @@ svg.leaflet-image-layer.leaflet-interactive path {
         name: { en: 'Gasthof Höllwirt', he: 'גסטהוף הללווירט' },
         address: { en: 'Winkl 33, 4831 Obertraun', he: 'Winkl 33, 4831 Obertraun' },
         note: { en: 'Near Obertraun beach / cave day', he: 'ליד חוף אוברטראון / יום מערה' } }
+    ];
+
+    const FARMS = [
+      // —— Grossarltal side ——
+      { id: 'f-aualm', base: 'grossarl', lat: 47.2628, lng: 13.1664, rating: 4.7, reviews: 264,
+        name: { en: 'Aualm', he: 'אואלם' },
+        address: { en: 'Aualm, 5611 Großarl (1,795 m)', he: 'Aualm, 5611 Großarl (1,795 מ׳)' },
+        note: { en: 'Homemade everything, small playground — car/taxi reachable in summer', he: 'הכל ביתי, מתקן משחקים קטן — נגיש ברכב/מונית בקיץ' } },
+      { id: 'f-loos', base: 'grossarl', lat: 47.2285, lng: 13.2880, rating: 4.7, reviews: 859,
+        name: { en: 'Loosbühelalm', he: 'לוסביהלאלם' },
+        address: { en: 'Ellmau 135, 5611 Großarl', he: 'Ellmau 135, 5611 Großarl' },
+        note: { en: "Big kids' area, own farm produce — families with small kids may drive closer in summer", he: 'אזור ילדים גדול, תוצרת חווה עצמית — משפחות עם קטנים יכולות לנסוע קרוב יותר בקיץ' } },
+      { id: 'f-gehwolf', base: 'grossarl', lat: 47.2425, lng: 13.1950, rating: 4.6, reviews: 823,
+        name: { en: 'Gehwolfalm', he: 'גהוולף אלם' },
+        address: { en: 'Kreuzberg 35, 5611 Großarl', he: 'Kreuzberg 35, 5611 Großarl' },
+        note: { en: 'Near cable car — family-praised hut with outdoor playground', he: 'ליד הרכבל — בקתה מוערכת עם מתקן משחקים בחוץ' } },
+      { id: 'f-mandl', base: 'grossarl', lat: 47.2053, lng: 13.1628, rating: 4.7, reviews: 48,
+        name: { en: 'Aigenalm-Mandlhütte', he: 'אייגןאלם-מנדלהיטה' },
+        address: { en: 'Mandldorf, 5611 Großarl (1,342 m)', he: 'Mandldorf, 5611 Großarl (1,342 מ׳)' },
+        note: { en: 'Rustic — wood-fired Kaiserschmarrn, water wheel play for kids', he: 'כפרי — קייזרשמרן בתנור עצים, גלגל מים למשחק ילדים' } },
+      { id: 'f-bichl', base: 'grossarl', lat: 47.2121, lng: 13.2247, rating: 4.9, reviews: 56,
+        name: { en: 'Bichlalm', he: 'ביכלאלם' },
+        address: { en: 'Harbach / Himmelsleiter, 5611 Großarl', he: 'Harbach / Himmelsleiter, 5611 Großarl' },
+        note: { en: 'Cow milking demo, stunning views, small menu', he: 'הדגמת חליבה, נוף מטורף, תפריט קטן' } },
+      { id: 'f-kree', base: 'grossarl', lat: 47.1466, lng: 13.3090, rating: 4.8, reviews: 60,
+        name: { en: 'Kreealm-Bichlhütte', he: 'קריאהלם-ביכלהיטה' },
+        address: { en: 'Kreealm, 5612 Hüttschlag', he: 'Kreealm, 5612 Hüttschlag' },
+        note: { en: 'Playground + rabbits — reviewers confirm doable with a 3-year-old', he: 'מתקן משחקים + ארנבים — ביקורות מאשרות שאפשרי עם בן 3' } },
+      { id: 'f-hinterhub', base: 'grossarl', lat: 47.2299, lng: 13.1951, rating: 4.7, reviews: 31,
+        name: { en: 'Bauernhof Hinterhub', he: 'באוארנהוף הינטרהוב' },
+        address: { en: 'Hubdorf 16, 5611 Großarl', he: 'Hubdorf 16, 5611 Großarl' },
+        note: { en: 'Cows/goats/rabbits/alpacas + playground — close to the village', he: 'פרות/עיזים/ארנבים/אלפקות + מתקן — קרוב לכפר' } },
+      { id: 'f-schaid', base: 'grossarl', lat: 47.2358, lng: 13.2065, rating: 4.8, reviews: 21,
+        name: { en: 'Schaidreithof', he: 'שיידראייטהוף' },
+        address: { en: 'Maurachweg 4, 5611 Großarl', he: 'Maurachweg 4, 5611 Großarl' },
+        note: { en: 'Petting animals, trampoline, farm eggs/butter', he: 'ליטוף חיות, טרמפולינה, ביצים וחמאה מהחווה' } },
+
+      // —— Wolfgangsee side ——
+      { id: 'f-weinbach', base: 'lakes', lat: 47.7252, lng: 13.5058, rating: 4.8, reviews: 41,
+        name: { en: 'Weinbachbauer', he: 'ויינבכבאואר' },
+        address: { en: 'Mönichsreith 4, 5360 St. Wolfgang', he: 'Mönichsreith 4, 5360 St. Wolfgang' },
+        note: { en: 'Working farm, milk delivery, panoramic views', he: 'חווה פעילה, משלוח חלב, נוף פנורמי' } },
+      { id: 'f-bleckwand', base: 'lakes', lat: 47.6983, lng: 13.4365, rating: 4.6, reviews: 411,
+        name: { en: 'Bleckwandhütte', he: 'בלקוונדהיטה' },
+        address: { en: 'Gschwendt 112, 5350 Strobl', he: 'Gschwendt 112, 5350 Strobl' },
+        note: { en: 'Lake views, simple snacks — classic family hike-stop', he: 'נוף לאגם, חטיפים פשוטים — עצירת טיול משפחתית קלאסית' } },
+      { id: 'f-laerchen', base: 'lakes', lat: 47.7055, lng: 13.4420, rating: 4.7, reviews: 635,
+        name: { en: 'Lärchenhütte (backup for Lettenalm)', he: 'לרכהיטה (גיבוי ל־Lettenalm)' },
+        address: { en: 'Near Gschwendt / Strobl, Wolfgangsee', he: 'ליד Gschwendt / Strobl, וולפגנגזה' },
+        note: { en: 'Backup if Lettenalm search fails — farm-animal views nearby', he: 'גיבוי אם חיפוש Lettenalm לא מצליח — נוף לחיות חווה בקרבת מקום' } }
     ];
 
     const PLAYGROUNDS = [
@@ -2454,6 +2523,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
     ];
 
     let showRestaurants = localStorage.getItem('austriaTripShowRestaurants') !== '0';
+    let showFarms = localStorage.getItem('austriaTripShowFarms') !== '0';
     let showPlaygrounds = localStorage.getItem('austriaTripShowPlaygrounds') !== '0';
     let poiLayerGroup = null;
 
@@ -3804,10 +3874,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
         document.getElementById('mapClearDays').textContent = u.mapClearDays;
         document.getElementById('mapPoiTitle').textContent = u.mapPoiTitle;
         document.getElementById('toggleRestaurantsLabel').textContent = u.mapShowRestaurants;
+        document.getElementById('toggleFarmsLabel').textContent = u.mapShowFarms;
         document.getElementById('togglePlaygroundsLabel').textContent = u.mapShowPlaygrounds;
         const restToggle = document.getElementById('toggleRestaurants');
+        const farmToggle = document.getElementById('toggleFarms');
         const playToggle = document.getElementById('togglePlaygrounds');
         if (restToggle) restToggle.checked = showRestaurants;
+        if (farmToggle) farmToggle.checked = showFarms;
         if (playToggle) playToggle.checked = showPlaygrounds;
         updateMapSidebarCollapseBtn();
 
@@ -4314,6 +4387,21 @@ svg.leaflet-image-layer.leaflet-interactive path {
           marker.addTo(poiLayerGroup);
         });
       }
+      if (showFarms) {
+        FARMS.forEach(f => {
+          const hotel = hotelForPoi(f);
+          const tipHtml = `
+            <strong>${tx(f.name)}</strong>
+            <div>${tx(f.address)}</div>
+            <div style="margin-top:6px">★ ${f.rating} · ${f.reviews.toLocaleString()} ${u.mapRestaurantReviews}</div>
+            <div><em>${u.mapDriveFromHotel}:</em> ${hotel.name} (~${hotel.km.toFixed(0)} km)</div>
+            ${f.note ? `<div style="margin-top:8px;color:#5c5c5c">${tx(f.note)}</div>` : ''}
+          `;
+          const marker = window.L.marker([f.lat, f.lng], { icon: makePoiIcon('farm', '&#128016;') });
+          bindMapInfo(marker, tipHtml);
+          marker.addTo(poiLayerGroup);
+        });
+      }
       if (showPlaygrounds) {
         PLAYGROUNDS.forEach(p => {
           const hotel = hotelForPoi(p);
@@ -4461,6 +4549,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
     document.getElementById('toggleRestaurants').addEventListener('change', (e) => {
       showRestaurants = e.target.checked;
       localStorage.setItem('austriaTripShowRestaurants', showRestaurants ? '1' : '0');
+      refreshMap();
+    });
+    document.getElementById('toggleFarms').addEventListener('change', (e) => {
+      showFarms = e.target.checked;
+      localStorage.setItem('austriaTripShowFarms', showFarms ? '1' : '0');
       refreshMap();
     });
     document.getElementById('togglePlaygrounds').addEventListener('change', (e) => {
