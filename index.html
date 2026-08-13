@@ -520,12 +520,25 @@
 
     .map-layout {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 300px minmax(0, 1fr);
+      grid-template-areas:
+        "toolbar toolbar"
+        "sidebar canvas";
       gap: 16px;
       align-items: start;
     }
 
+    .map-layout.sidebar-collapsed {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "toolbar"
+        "sidebar"
+        "canvas";
+    }
+
     .map-sidebar {
+      grid-area: sidebar;
+      min-width: 0;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 12px;
@@ -700,10 +713,10 @@
     }
 
     .map-toolbar {
+      grid-area: toolbar;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 8px;
     }
 
     .map-toolbar .btn {
@@ -714,6 +727,7 @@
     }
 
     .map-canvas-wrap {
+      grid-area: canvas;
       width: 100%;
       min-width: 0;
       position: relative;
@@ -4472,6 +4486,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
       const btn = document.getElementById('mapSidebarCollapseBtn');
       const showBtn = document.getElementById('mapShowDaysBtn');
       if (side) side.classList.toggle('collapsed', mapSidebarCollapsed);
+      const layout = side && side.closest('.map-layout');
+      if (layout) layout.classList.toggle('sidebar-collapsed', mapSidebarCollapsed);
       if (btn) {
         btn.setAttribute('aria-expanded', mapSidebarCollapsed ? 'false' : 'true');
         btn.textContent = mapSidebarCollapsed ? u.mapSidebarExpand : u.mapSidebarCollapse;
