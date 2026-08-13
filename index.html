@@ -377,6 +377,41 @@
     .tag-rainy { background: #ECEFF1; color: #546E7A; }
     .tag-stroller { background: #E8F5EE; color: var(--green); }
     .tag-carrier { background: #FDECEC; color: var(--red); }
+    .tag-access-drive { background: #EEF2FF; color: #3949AB; }
+    .tag-access-cable { background: #FFF3E0; color: #E65100; }
+
+    .farm-lunch {
+      margin-top: 8px;
+      padding: 8px 10px;
+      background: #F7F1E8;
+      border-radius: 6px;
+      border: 1px solid #E8DCC8;
+    }
+
+    .farm-lunch-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6B5428;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .farm-lunch ul {
+      margin: 0;
+      padding-inline-start: 16px;
+    }
+
+    .farm-lunch li {
+      font-size: 12px;
+      color: #3d3429;
+      margin-bottom: 4px;
+    }
+
+    .farm-lunch .farm-meta {
+      color: #7A6A52;
+      font-size: 11px;
+    }
 
     .block-title {
       font-size: 11px;
@@ -1968,6 +2003,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
         destination: 'Destination',
         whatYouDo: 'What you do',
         lunch: 'Lunch',
+        farmLunch: 'Nearby farm / Alm lunch options',
+        accessDrive: 'Drive only',
+        accessCable: 'Drive + cable car',
         afternoon: 'Afternoon',
         maps: 'Open in Maps',
         directions: 'Directions from hotel',
@@ -2063,6 +2101,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
         destination: 'יעד',
         whatYouDo: 'מה עושים',
         lunch: 'צהריים',
+        farmLunch: 'אפשרויות צהריים בחווה / אלם בקרבת מקום',
+        accessDrive: 'נסיעה בלבד',
+        accessCable: 'נסיעה + רכבל',
         afternoon: 'אחר הצהריים',
         maps: 'פתח במפות',
         directions: 'ניווט מהמלון',
@@ -3972,11 +4013,71 @@ svg.leaflet-image-layer.leaflet-interactive path {
       });
     }
 
+    function dayAccess(day) {
+      return (day.types && day.types.includes('cable')) ? 'cable' : 'drive';
+    }
+
+    // Farms that sit in / next to a cable-car day area (override pure distance).
+    const CABLE_AREA_FARMS = {
+      G13: ['f-gehwolf', 'f-aualm', 'f-hinterhub', 'f-aubauer', 'f-schaid', 'f-troad'],
+      G4:  ['f-untervieh', 'f-aualm', 'f-gehwolf', 'f-wandlehen'],
+      G14: [], // Filzmoos mountain restaurant — our farm list is Grossarl/Wolfgangsee
+      L2:  ['f-weinbach', 'f-bleckwand', 'f-laerchen']
+    };
+
+    function farmsNearDay(day) {
+      if (!DAY_COORDS[day.id]) return [];
+      const [lat, lng] = DAY_COORDS[day.id];
+      const dayPt = { lat, lng };
+      const cableIds = CABLE_AREA_FARMS[day.id];
+      if (cableIds) {
+        return cableIds
+          .map(id => FARMS.find(f => f.id === id))
+          .filter(Boolean)
+          .map(f => ({
+            ...f,
+            km: haversineKm(dayPt, { lat: f.lat, lng: f.lng }),
+            viaCable: true
+          }));
+      }
+      if (day.base === 'transfer') return [];
+      const maxKm = day.base === 'grossarl' ? 18 : 14;
+      return FARMS
+        .filter(f => !day.base || f.base === day.base)
+        .map(f => ({
+          ...f,
+          km: haversineKm(dayPt, { lat: f.lat, lng: f.lng }),
+          viaCable: false
+        }))
+        .filter(f => f.km <= maxKm)
+        .sort((a, b) => a.km - b.km || b.rating - a.rating)
+        .slice(0, 4);
+    }
+
+    function farmLunchHtml(day, u) {
+      const farms = farmsNearDay(day);
+      if (!farms.length) return '';
+      const items = farms.map(f => {
+        const how = f.viaCable
+          ? (lang === 'he' ? 'באזור הרכבל' : 'in cable-car area')
+          : `~${f.km.toFixed(0)} km`;
+        return `<li><strong>${tx(f.name)}</strong> ★ ${f.rating}
+          <span class="farm-meta"> · ${how}</span>
+          <div class="farm-meta">${tx(f.note)}</div>
+        </li>`;
+      }).join('');
+      return `<div class="farm-lunch"><div class="farm-lunch-title">${u.farmLunch}</div><ul>${items}</ul></div>`;
+    }
+
     function renderCards() {
       const u = UI[lang];
       const container = document.getElementById('cardsContainer');
       container.innerHTML = days.map(day => {
         const baseLabel = u.bases[day.base];
+        const access = dayAccess(day);
+        const accessTag = access === 'cable'
+          ? `<span class="tag tag-access-cable">${u.accessCable}</span>`
+          : `<span class="tag tag-access-drive">${u.accessDrive}</span>`;
         const typeTags = day.types.map(t =>
           `<span class="tag tag-base-${day.base}" style="opacity:0.85">${u.types[t]}</span>`
         ).join('');
@@ -3987,14 +4088,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
         const actsList = tx(day.activities);
         const acts = (Array.isArray(actsList) ? actsList : []).map(a => `<li>${a}</li>`).join('');
         const actSearch = Array.isArray(actsList) ? actsList : [];
+        const nearbyFarms = farmsNearDay(day);
         const searchBlob = [
           tx(day.title), tx(day.destination), ...actSearch,
-          tx(day.morning), tx(day.lunch), tx(day.afternoon), tx(day.note)
+          tx(day.morning), tx(day.lunch), tx(day.afternoon), tx(day.note),
+          ...nearbyFarms.map(f => tx(f.name) + ' ' + tx(f.note)),
+          access === 'cable' ? u.accessCable : u.accessDrive
         ].join(' ').toLowerCase();
 
         return `
           <article class="card" data-id="${day.id}" data-base="${day.base}" data-weather="${day.weather}"
             data-types="${day.types.join(',')}" data-stroller="${day.stroller}" data-nap="${day.nap}"
+            data-access="${access}"
             data-search="${searchBlob.replace(/"/g, '')}">
             <div class="card-top">
               <span class="card-id">${day.id} · ${baseLabel}</span>
@@ -4004,6 +4109,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <div class="tags">
               <span class="tag tag-base-${day.base}">${baseLabel}</span>
               <span class="tag tag-${day.weather}">${day.weather === 'sunny' ? u.dry : u.rain}</span>
+              ${accessTag}
               ${fitTags}
             </div>
             <div class="tags">${typeTags}</div>
@@ -4022,6 +4128,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <div class="block">
               <div class="block-title">${u.lunch}</div>
               <p>${tx(day.lunch)}</p>
+              ${farmLunchHtml(day, u)}
             </div>
             <div class="block">
               <div class="block-title">${u.afternoon}</div>
@@ -4139,13 +4246,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
         const color = colorForDay(day.id);
         const checked = selectedDayIds.has(day.id) ? 'checked' : '';
         const selectedClass = selectedDayIds.has(day.id) ? ' selected' : '';
+        const accessLabel = dayAccess(day) === 'cable' ? u.accessCable : u.accessDrive;
         return `
           <label class="map-day-item${selectedClass}" data-day-id="${day.id}">
             <input type="checkbox" ${checked} data-day-id="${day.id}">
             <span class="map-swatch" style="background:${color}"></span>
             <span class="map-day-meta">
               <strong>${day.id} · ${tx(day.title)}</strong>
-              <span>${tx(day.drive)}</span>
+              <span>${accessLabel} · ${tx(day.drive)}</span>
             </span>
           </label>`;
       }).join('') || `<p class="map-help">${u.empty}</p>`;
@@ -4392,12 +4500,16 @@ svg.leaflet-image-layer.leaflet-interactive path {
         });
         line.addTo(mapLayerGroup);
 
+        const accessLabel = dayAccess(day) === 'cable' ? u.accessCable : u.accessDrive;
+        const farmBits = farmsNearDay(day).slice(0, 3).map(f => `★ ${tx(f.name)}`).join('<br>');
         const tipHtml = `
           <strong>${day.id} · ${tx(day.title)}</strong>
           <div>${tx(day.destination)}</div>
-          <div style="margin-top:6px"><em>${u.mapDriveFrom}:</em> ${prev.name}</div>
+          <div style="margin-top:6px"><strong>${accessLabel}</strong></div>
+          <div><em>${u.mapDriveFrom}:</em> ${prev.name}</div>
           <div><strong>${tx(day.drive)}</strong> (~${km.toFixed(0)} km)</div>
           <div style="margin-top:8px">${acts}</div>
+          ${farmBits ? `<div style="margin-top:8px;padding:6px 8px;background:#f7f1e8;border-radius:6px"><strong>${u.farmLunch}</strong><br>${farmBits}</div>` : ''}
           ${day.note ? `<div style="margin-top:8px;color:#5c5c5c">${tx(day.note)}</div>` : ''}
         `;
 
