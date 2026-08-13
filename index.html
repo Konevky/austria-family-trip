@@ -1994,6 +1994,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
         mapShowPlaygrounds: 'Children\'s playgrounds',
         mapRestaurantRating: 'Google rating',
         mapRestaurantReviews: 'reviews',
+        mapPoiNote: 'Note',
         mapDriveFromHotel: 'Drive from hotel',
         mapSidebarCollapse: 'Hide days',
         mapSidebarExpand: 'Show days',
@@ -2088,6 +2089,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
         mapShowPlaygrounds: 'גני שעשועים לילדים',
         mapRestaurantRating: 'דירוג גוגל',
         mapRestaurantReviews: 'ביקורות',
+        mapPoiNote: 'הערה',
         mapDriveFromHotel: 'נסיעה מהמלון',
         mapSidebarCollapse: 'הסתר ימים',
         mapSidebarExpand: 'הצג ימים',
@@ -2205,7 +2207,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
       { id: 'r-rohrer', base: 'grossarl', lat: 47.2378, lng: 13.2005, rating: 4.7, reviews: 355,
         name: { en: 'Rohrerwirt', he: 'רוהררווירט' },
         address: { en: 'Marktplatz 6, 5611 Großarl', he: 'Marktplatz 6, 5611 Großarl' },
-        note: { en: 'Traditional village inn — gluten-free options, kids welcome', he: 'פונדק מסורתי בכפר — אפשרויות ללא גלוטן, ידידותי לילדים' } },
+        note: { en: 'Very good; traditional but well regarded', he: 'טוב מאוד; מסורתי אבל מוערך היטב' } },
+      { id: 'r-schmankerl', base: 'grossarl', lat: 47.2368, lng: 13.2005, rating: 4.7, reviews: 319,
+        name: { en: 'Schmankerlstubn', he: 'שמאנקרלשטובּן' },
+        address: { en: 'Dorfstraße area, 5611 Großarl', he: 'אזור Dorfstraße, 5611 Großarl' },
+        note: { en: 'Traditional/local, good family option', he: 'מסורתי/מקומי, אפשרות טובה למשפחה' } },
       { id: 'r-aschau', base: 'grossarl', lat: 47.1602, lng: 13.2783, rating: 4.7, reviews: 405,
         name: { en: 'Aschaustüberl (Hüttschlag)', he: 'אשאושטובּרל (היטשלאג)' },
         address: { en: 'Karteis 24, 5612 Hüttschlag', he: 'Karteis 24, 5612 Hüttschlag' },
@@ -2308,14 +2314,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
         name: { en: 'Kaffeewerkstatt', he: 'קפה־וורקשטט' },
         address: { en: 'Markt 140, 5360 St. Wolfgang', he: 'Markt 140, 5360 St. Wolfgang' },
         note: { en: 'Specialty coffee & cake stop', he: 'קפה איכותי ועצירת עוגה' } },
-      { id: 'r-dspeis', base: 'lakes', lat: 47.7430, lng: 13.4420, rating: 4.6, reviews: 180,
+      { id: 'r-dspeis', base: 'lakes', lat: 47.7430, lng: 13.4420, rating: 4.8, reviews: 289,
         name: { en: 'dSpeis Genussaufnahmestube', he: 'דספייס' },
         address: { en: 'Au 36, 5360 St. Wolfgang', he: 'Au 36, 5360 St. Wolfgang' },
-        note: { en: 'Near Bachmanngut — local modern kitchen', he: 'ליד באכמנגוט — מטבח מקומי מודרני' } },
+        note: { en: 'Excellent food, but more of a grown-up dinner', he: 'אוכל מעולה, אבל יותר ארוחת ערב למבוגרים' } },
       { id: 'r-dorner', base: 'lakes', lat: 47.7150, lng: 13.4280, rating: 4.8, reviews: 360,
         name: { en: 'Jausenstation Dornerhof', he: 'יאוזנסטציון דורנהוף' },
         address: { en: 'Dornerweg 10, 5350 Strobl', he: 'Dornerweg 10, 5350 Strobl' },
-        note: { en: 'Great platters; one review flags cool service toward tourists', he: 'מגשים מעולים; ביקורת אחת מציינת שירות קריר לתיירים' } },
+        note: { en: 'Excellent — rustic, views, snacks, very local', he: 'מעולה — כפרי, נוף, חטיפים, מאוד מקומי' } },
       { id: 'r-aschinger', base: 'lakes', lat: 47.7355, lng: 13.4550, rating: 4.7, reviews: 499,
         name: { en: 'Jausenstation Aschinger', he: 'יאוזנסטציון אשינגר' },
         address: { en: 'Aschingerweg, 5360 St. Wolfgang', he: 'Aschingerweg, 5360 St. Wolfgang' },
@@ -2392,6 +2398,22 @@ svg.leaflet-image-layer.leaflet-interactive path {
         name: { en: 'Schaidreithof', he: 'שיידראייטהוף' },
         address: { en: 'Maurachweg 4, 5611 Großarl', he: 'Maurachweg 4, 5611 Großarl' },
         note: { en: 'Petting animals, trampoline, farm eggs/butter', he: 'ליטוף חיות, טרמפולינה, ביצים וחמאה מהחווה' } },
+      { id: 'f-aubauer', base: 'grossarl', lat: 47.2586, lng: 13.1976, rating: 4.8, reviews: 81,
+        name: { en: 'Biobauernhof Aubauer', he: 'ביובאוארנהוף אובאואר' },
+        address: { en: 'Aubauernweg 1, 5611 Großarl', he: 'Aubauernweg 1, 5611 Großarl' },
+        note: { en: 'Yes — particularly with your kids', he: 'כן — במיוחד עם הילדים שלכם' } },
+      { id: 'f-wandlehen', base: 'grossarl', lat: 47.2350, lng: 13.2080, rating: 5.0, reviews: 63,
+        name: { en: 'Wandlehenhof', he: 'ונדלהנהוף' },
+        address: { en: 'Ellmau 3, 5611 Großarl', he: 'Ellmau 3, 5611 Großarl' },
+        note: { en: 'Yes, but primarily a farm stay', he: 'כן, אבל בעיקר לינה בחווה' } },
+      { id: 'f-untervieh', base: 'grossarl', lat: 47.2772, lng: 13.2072, rating: 4.7, reviews: 13,
+        name: { en: 'Unterviehhausbauer', he: 'אונטרפיההאוסבאואר' },
+        address: { en: 'Schiedweg 52, 5611 Großarl', he: 'Schiedweg 52, 5611 Großarl' },
+        note: { en: 'Nice small farm, but few reviews', he: 'חווה קטנה נחמדה, אבל מעט ביקורות' } },
+      { id: 'f-troad', base: 'grossarl', lat: 47.2367, lng: 13.2009, rating: 4.8, reviews: 67,
+        name: { en: 'Großarler Troadkastn', he: 'גרוסרלר טרואדקסטן' },
+        address: { en: 'Dorfstraße 2, 5611 Großarl', he: 'Dorfstraße 2, 5611 Großarl' },
+        note: { en: 'Yes — best for buying local food for a picnic (farm shop/market, not a restaurant)', he: 'כן — הכי טוב לקנות אוכל מקומי לפיקניק (חנות חווה/שוק, לא מסעדה)' } },
 
       // —— Wolfgangsee side ——
       { id: 'f-weinbach', base: 'lakes', lat: 47.7252, lng: 13.5058, rating: 4.8, reviews: 41,
@@ -2401,7 +2423,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       { id: 'f-bleckwand', base: 'lakes', lat: 47.6983, lng: 13.4365, rating: 4.6, reviews: 411,
         name: { en: 'Bleckwandhütte', he: 'בלקוונדהיטה' },
         address: { en: 'Gschwendt 112, 5350 Strobl', he: 'Gschwendt 112, 5350 Strobl' },
-        note: { en: 'Lake views, simple snacks — classic family hike-stop', he: 'נוף לאגם, חטיפים פשוטים — עצירת טיול משפחתית קלאסית' } },
+        note: { en: 'Great setting; mountain hut', he: 'מיקום מעולה; בקתת הר' } },
       { id: 'f-laerchen', base: 'lakes', lat: 47.7055, lng: 13.4420, rating: 4.7, reviews: 635,
         name: { en: 'Lärchenhütte (backup for Lettenalm)', he: 'לרכהיטה (גיבוי ל־Lettenalm)' },
         address: { en: 'Near Gschwendt / Strobl, Wolfgangsee', he: 'ליד Gschwendt / Strobl, וולפגנגזה' },
@@ -4380,7 +4402,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <div>${tx(r.address)}</div>
             <div style="margin-top:6px">★ ${r.rating} · ${r.reviews.toLocaleString()} ${u.mapRestaurantReviews}</div>
             <div><em>${u.mapDriveFromHotel}:</em> ${hotel.name} (~${hotel.km.toFixed(0)} km)</div>
-            ${r.note ? `<div style="margin-top:8px;color:#5c5c5c">${tx(r.note)}</div>` : ''}
+            ${r.note ? `<div style="margin-top:8px;padding:6px 8px;background:#f7f1e8;border-radius:6px;color:#3d3429"><strong>${u.mapPoiNote}:</strong> ${tx(r.note)}</div>` : ''}
           `;
           const marker = window.L.marker([r.lat, r.lng], { icon: makePoiIcon('restaurant', '&#127860;') });
           bindMapInfo(marker, tipHtml);
@@ -4395,7 +4417,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <div>${tx(f.address)}</div>
             <div style="margin-top:6px">★ ${f.rating} · ${f.reviews.toLocaleString()} ${u.mapRestaurantReviews}</div>
             <div><em>${u.mapDriveFromHotel}:</em> ${hotel.name} (~${hotel.km.toFixed(0)} km)</div>
-            ${f.note ? `<div style="margin-top:8px;color:#5c5c5c">${tx(f.note)}</div>` : ''}
+            ${f.note ? `<div style="margin-top:8px;padding:6px 8px;background:#f7f1e8;border-radius:6px;color:#3d3429"><strong>${u.mapPoiNote}:</strong> ${tx(f.note)}</div>` : ''}
           `;
           const marker = window.L.marker([f.lat, f.lng], { icon: makePoiIcon('farm', '&#128016;') });
           bindMapInfo(marker, tipHtml);
@@ -4409,7 +4431,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <strong>${tx(p.name)}</strong>
             <div>${tx(p.address)}</div>
             <div style="margin-top:6px"><em>${u.mapDriveFromHotel}:</em> ${hotel.name} (~${hotel.km.toFixed(0)} km)</div>
-            ${p.note ? `<div style="margin-top:8px;color:#5c5c5c">${tx(p.note)}</div>` : ''}
+            ${p.note ? `<div style="margin-top:8px;padding:6px 8px;background:#f7f1e8;border-radius:6px;color:#3d3429"><strong>${u.mapPoiNote}:</strong> ${tx(p.note)}</div>` : ''}
           `;
           const marker = window.L.marker([p.lat, p.lng], { icon: makePoiIcon('playground', '&#9969;') });
           bindMapInfo(marker, tipHtml);
