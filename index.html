@@ -2193,12 +2193,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
       G13: [47.2280, 13.1990],
       G14: [47.4330, 13.5150],
       G15: [47.2900, 13.4900],
+      G16: [47.3600, 13.3800],
+      G17: [47.4637, 13.3782],
+      G18: [47.3350, 13.3050],
+      G19: [47.5906, 13.1633],
+      L13: [47.7670, 13.3650],
       T1: [48.0086, 11.8483],
       T2: [47.5883, 12.9877],
       T3: [47.7420, 12.6510],
       T4: [47.5906, 13.1633],
       T5: [47.9080, 13.1900],
-      T6: [48.0086, 11.8483]
+      T6: [48.0086, 11.8483],
+      T7: [47.7450, 13.0700]
     };
 
     const DAY_COLORS = [
@@ -2337,6 +2343,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
         name: { en: 'Gasthof zur Post', he: 'גסטהוף צור פוסט' },
         address: { en: 'Markt 35, 5360 St. Wolfgang', he: 'Markt 35, 5360 St. Wolfgang' },
         note: { en: 'Solid, central, family-run', he: 'מוצק, מרכזי, משפחתי' } },
+      { id: 'r-papageno', base: 'lakes', lat: 47.7668, lng: 13.3648, rating: 4.5, reviews: 200,
+        name: { en: 'Restaurant Papageno (St. Gilgen)', he: 'מסעדת Papageno (סנט גילגן)' },
+        address: { en: 'St. Gilgen / Wolfgangsee shore', he: 'סנט גילגן / חוף וולפגנגזה' },
+        note: { en: 'Group tip after e-bike / lake day — solid family plates', he: 'טיפ מהקבוצה אחרי יום אופניים / אגם — מנות משפחתיות מוצקות' } },
       { id: 'r-paul', base: 'lakes', lat: 47.7398, lng: 13.4475, rating: 4.3, reviews: 1200,
         name: { en: 'PAUL der Wirt', he: 'פאול דר ווירט' },
         address: { en: 'Markt 54, 5360 St. Wolfgang', he: 'Markt 54, 5360 St. Wolfgang' },
@@ -2657,8 +2667,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
           ]
         },
         lunch: {
-          en: 'Gasthaus Jägersee — simple Austrian dishes on the terrace, or picnic on the shore',
-          he: 'Gasthaus Jägersee — מנות אוסטריות פשוטות במרפסת, או פיקניק על החוף'
+          en: 'Gasthaus Jägersee — simple Austrian dishes on the terrace; group tip: excellent apple strudel',
+          he: 'Gasthaus Jägersee — מנות אוסטריות פשוטות במרפסת; טיפ מהקבוצה: שטרודל תפוחים מעולה'
         },
         afternoon: {
           en: 'Ice cream at the restaurant; toddler nap in stroller on the loop or drive back (40 min) for hotel quiet time',
@@ -2870,27 +2880,29 @@ svg.leaflet-image-layer.leaflet-interactive path {
         },
         activities: {
           en: [
-            'Bears, wolves, marmots — easy viewing platforms',
-            'Adjoining adventure park with 40 play stations',
-            'Petting area sections — check schedule'
+            'Bears, wolves, marmots — easy viewing platforms on a flat loop (200+ alpine animals)',
+            'Huge adjoining adventure park (~20,000 m², 40+ stations): trampolines, slides, climbing, water play, indoor play',
+            'Rest areas and viewpoints along the path',
+            'Arrive in the morning in July/August — parking is large and easy'
           ],
           he: [
-            'דובים, זאבים, מרמוטות — פלטפורמות צפייה נוחות',
-            'פארק הרפתקאות צמוד עם כ־40 תחנות',
-            'אזורי ליטוף — לבדוק לוח זמנים'
+            'דובים, זאבים, מרמוטות — פלטפורמות צפייה נוחות במסלול שטוח (יותר מ־200 חיות אלפיניות)',
+            'פארק הרפתקאות ענק צמוד (~20,000 מ״ר, 40+ תחנות): טרמפולינות, מגלשות, טיפוס, משחקי מים, משחק מקורה',
+            'פינות מנוחה ותצפיות לאורך השביל',
+            'להגיע בבוקר ביולי/אוגוסט — חניה גדולה ונוחה'
           ]
         },
         lunch: {
-          en: 'Wildpark restaurant or picnic tables',
-          he: 'מסעדת הפארק או שולחנות פיקניק'
+          en: 'Wildpark restaurant (good family stop) or picnic tables',
+          he: 'מסעדת הפארק (עצירת משפחה טובה) או שולחנות פיקניק'
         },
         afternoon: {
-          en: 'Short drive back or stop at Bruck Fuscher Ache river play',
-          he: 'נסיעה קצרה חזרה או עצירה בנחל ב־Bruck'
+          en: 'Most families spend 3–4 hrs, or a full day if kids love the play park. Short drive back or stop at Bruck Fuscher Ache river play',
+          he: 'רוב המשפחות נשארות 3–4 שעות, או יום שלם אם הילדים אוהבים את הפארק. נסיעה קצרה חזרה או עצירה בנחל ב־Bruck'
         },
         note: {
-          en: 'Allow 3–4 hrs on site. Stroller works on main animal route.',
-          he: 'להקצות 3–4 שעות במקום. עגלה עובדת במסלול החיות הראשי.'
+          en: 'Usually open May–October. Bring spare clothes for the water-play area. Stroller works on the main animal route.',
+          he: 'בדרך כלל פתוח ממאי עד אוקטובר. להביא בגדים להחלפה לאזור משחקי המים. עגלה עובדת במסלול החיות הראשי.'
         }
       },
       {
@@ -2909,12 +2921,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
           en: [
             'Town center playground',
             'Hopsiland mini adventure area (seasonal)',
-            'Optional: continue 15 min to Kleinarl for a shorter stream walk if Jägersee already done'
+            'Optional: continue 15 min to Kleinarl for a shorter stream walk if Jägersee already done',
+            'Hot or rainy backup: Wagraini\'s Wasserwelt pools (see day G18)'
           ],
           he: [
             'גן שעשועים במרכז העיירה',
             'אזור מיני־הרפתקאות Hopsiland (עונתי)',
-            'אופציונלי: עוד 15 דק׳ לקליינארל להליכת נחל קצרה אם כבר הייתם ביאגרזה'
+            'אופציונלי: עוד 15 דק׳ לקליינארל להליכת נחל קצרה אם כבר הייתם ביאגרזה',
+            'גיבוי ליום חם/גשום: בריכות Wagraini\'s Wasserwelt (ראו יום G18)'
           ]
         },
         lunch: {
@@ -3056,13 +3070,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
         activities: {
           en: [
             'Salzach river promenade — ball play in artificial stream on Getreidegasse',
+            'Toy Museum and/or Haus der Natur (natural history + aquarium) — both rain-safe',
             'Mirabell Gardens (Sound of Music steps — fun for running)',
-            'Chocolate shop tastings'
+            'Optional same-day add-ons if energy holds: Hellbrunn trick fountains or Salzburg Zoo (both south of town, ~15 min drive)'
           ],
           he: [
             'טיילת הזלצך — משחק בכדור בנחל המלאכותי בגטרדיגאסה',
+            'מוזיאון הצעצועים ו/או Haus der Natur (טבע + אקווריום) — שניהם בטוחים לגשם',
             'גני מיראבל (מדרגות צלילי המוזיקה — כיף לרוץ)',
-            'טעימות בחנויות שוקולד'
+            'תוספות אופציונליות אם יש כוח: מזרקות הלברון או גן החיות של זלצבורג (שניהם דרומית לעיר, ~15 דק׳ נסיעה)'
           ]
         },
         lunch: {
@@ -3070,12 +3086,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
           he: 'איטלקי על הנהר או פיקניק משוק Grünmarkt'
         },
         afternoon: {
-          en: 'Return before rush hour; 3½ yr old may nap in car',
-          he: 'לחזור לפני שעת העומס; ילד בן 3½ יכול לישון ברכב'
+          en: 'Return before rush hour; 3½ yr old may nap in car. Skip fortress interior with toddlers unless they love castles — the outdoor funicular is enclosed.',
+          he: 'לחזור לפני שעת העומס; ילד בן 3½ יכול לישון ברכב. לוותר על פנים המצודה אלא אם אוהבים טירות — הפוניקולר החיצוני סגור.'
         },
         note: {
-          en: 'Skip Hohensalzburg interior with toddlers unless they love castles. Outdoor fortress funicular is enclosed.',
-          he: 'לוותר על פנים מצודת הוהנזלצבורג אלא אם אוהבים טירות. הפוניקולר החיצוני סגור.'
+          en: 'Group posts often pair this city day with Hellbrunn / Zoo — keep those as optional add-ons so the morning museums stay calm.',
+          he: 'בפוסטים בקבוצות לעיתים משלבים את יום העיר עם הלברון / גן החיות — לשמור אותם כתוספת אופציונלית כדי שהבוקר במוזיאונים יישאר רגוע.'
         }
       },
       {
@@ -3638,6 +3654,197 @@ svg.leaflet-image-layer.leaflet-interactive path {
         }
       },
       {
+        id: 'G16', base: 'grossarl', weather: 'sunny',
+        types: ['water', 'nature', 'playground', 'food'],
+        stroller: true, nap: true,
+        mapQuery: 'Reitecksee Flachau Austria',
+        title: { en: 'Flachau — Reitecksee lake day (+ optional Starjet warning)', he: 'פלאכאו — יום אגם Reitecksee (+ אזהרת Starjet אופציונלי)' },
+        drive: { en: '35–40 min to Flachau / Reitdorf', he: '35–40 דק׳ לפלאכאו / רייטדורף' },
+        destination: { en: 'Reitecksee, Reitdorf / Flachau', he: 'Reitecksee, Reitdorf / Flachau' },
+        morning: {
+          en: 'Easy lake morning near Flachau — flat shore, ducks, picnic grass. This matches the group posts that pair Flachau with a calm water stop.',
+          he: 'בוקר אגם קל ליד פלאכאו — חוף שטוח, ברווזים, דשא לפיקניק. תואם את הפוסטים בקבוצות שמשלבים פלאכאו עם עצירת מים רגועה.'
+        },
+        activities: {
+          en: [
+            'Reitecksee shore walk and playground spots',
+            'Optional afternoon: Badesee Flachau or Lucky Flitzer if kids still have fuel',
+            'Rain swap: Therme Amadé in Wagrain (also listed in group itineraries)',
+            'Starjet / Flori adventure trail appears in posts — BUT Starjet is an OPEN 6-seat chairlift, not an enclosed gondola. Skip it for this family plan unless you deliberately accept open chairs'
+          ],
+          he: [
+            'הליכה על חוף Reitecksee ופינות משחק',
+            'אופציונלי אחה״צ: Badesee Flachau או Lucky Flitzer אם יש עוד אנרגיה',
+            'החלפת גשם: Therme Amadé בוואגריין (גם מופיע במסלולי הקבוצות)',
+            'Starjet / שביל Flori מופיעים בפוסטים — אבל Starjet הוא כיסא פתוח ל־6, לא גונדולה סגורה. לדלג במסלול הזה אלא אם מקבלים במודע כיסאות פתוחים'
+          ]
+        },
+        lunch: {
+          en: 'Lakeside café / picnic at Reitecksee',
+          he: 'קפה על האגם / פיקניק ב־Reitecksee'
+        },
+        afternoon: {
+          en: 'Keep it short and nap in the car back to Grossarl (~40 min)',
+          he: 'לשמור קצר ולשנ״צ ברכב חזרה לגרוסרל (~40 דק׳)'
+        },
+        note: {
+          en: 'Added from group Flachau itineraries. We kept the lake and dropped Starjet as a default because this planner avoids open chairlifts.',
+          he: 'נוסף ממסלולי פלאכאו בקבוצות. השארנו את האגם והורדנו את Starjet כברירת מחדל כי המתכנן נמנע מכיסאות פתוחים.'
+        }
+      },
+      {
+        id: 'G17', base: 'grossarl', weather: 'sunny',
+        types: ['playground', 'nature', 'food'],
+        stroller: false, nap: true,
+        mapQuery: 'Woody-Bob Sankt Martin am Tennengebirge',
+        title: { en: 'Woody-Bob alpine coaster — St. Martin am Tennengebirge', he: 'Woody-Bob מגלשת הרים — סנט מרטין אם טננגבירגה' },
+        drive: { en: '45–50 min to St. Martin am Tennengebirge', he: '45–50 דק׳ לסנט מרטין אם טננגבירגה' },
+        destination: { en: 'Woody-Bob, Martinerstraße 21, 5522 St. Martin am Tennengebirge', he: 'Woody-Bob, Martinerstraße 21, 5522 St. Martin am Tennengebirge' },
+        morning: {
+          en: 'Arrive early — this is the coaster style your family already loves. Short and sweet, so the 1yo can ride in a carrier with an adult.',
+          he: 'להגיע מוקדם — זה סגנון המגלשות שכבר אהבתם. קצר ומתוק, כך שהקטנה יכולה לרדת במנשא עם מבוגר.'
+        },
+        activities: {
+          en: [
+            'Woody-Bob rollbob runs — one adult + toddler per sled as rules allow',
+            'Play corners around the valley station while waiting',
+            'Optional afternoon: continue toward Golling / Bluntautal if energy holds (or keep G19 separate)'
+          ],
+          he: [
+            'ירידות Woody-Bob — מבוגר + פעוט במגלשה לפי הכללים',
+            'פינות משחק ליד תחנת העמק בזמן ההמתנה',
+            'אופציונלי אחה״צ: להמשיך לגולינג / בלונטאוטל אם יש כוח (או לשמור את G19 בנפרד)'
+          ]
+        },
+        lunch: {
+          en: 'On-site snack bar / simple plates at the coaster',
+          he: 'מזנון / מנות פשוטות במקום המגלשה'
+        },
+        afternoon: {
+          en: 'Drive home for nap, or stop 20 min at a playground in Werfen if kids need to burn leftover energy',
+          he: 'נסיעה הביתה לשנ״צ, או עצירת 20 דק׳ בגן שעשועים בוורפן אם צריך לפרוק אנרגיה'
+        },
+        note: {
+          en: 'From the Flachau→Abtenau group itineraries. Carrier day — leave the stroller in the car.',
+          he: 'ממסלולי הקבוצות פלאכאו→אבטנאו. יום מנשא — להשאיר את העגלה ברכב.'
+        }
+      },
+      {
+        id: 'G18', base: 'grossarl', weather: 'rainy',
+        types: ['therme', 'water', 'playground'],
+        stroller: true, nap: true,
+        mapQuery: 'Wagraini Wasserwelt Wagrain',
+        title: { en: "Wagraini's Wasserwelt — indoor/outdoor pools (rain or heat)", he: "Wagraini's Wasserwelt — בריכות פנים/חוץ (גשם או חום)" },
+        drive: { en: '30 min to Wagrain', he: '30 דק׳ לוואגריין' },
+        destination: { en: "Wagraini's Wasserwelt, 5602 Wagrain", he: "Wagraini's Wasserwelt, 5602 Wagrain" },
+        morning: {
+          en: 'Group tip for Flachau-area families: heated indoor pool plus outdoor pool, easy with a baby and a 3.5yo.',
+          he: 'טיפ מהקבוצות למשפחות באזור פלאכאו: בריכה מקורה מחוממת + בריכה חיצונית, נוח עם תינוקת וילד בן 3.5.'
+        },
+        activities: {
+          en: [
+            'Indoor heated pool for cooler/rainy mornings',
+            'Outdoor pool + kid splash areas when the sun comes out',
+            'Often mentioned with SalzburgerLand card benefits — check current inclusion before you go'
+          ],
+          he: [
+            'בריכה מקורה מחוממת לבוקר קריר/גשום',
+            'בריכה חיצונית ואזורי התזה כשיצאה השמש',
+            'לעיתים מופיע עם הטבות כרטיס SalzburgerLand — לבדוק הכללה עדכנית לפני היציאה'
+          ]
+        },
+        lunch: {
+          en: 'Pool café or a short hop into Wagrain town for pizza/schnitzel',
+          he: 'קפה בבריכה או קפיצה קצרה למרכז ואגריין לפיצה/שניצל'
+        },
+        afternoon: {
+          en: 'Back to the hotel by early afternoon for nap / hotel play area',
+          he: 'חזרה למלון מוקדם אחר הצהריים לשנ״צ / משחקיה במלון'
+        },
+        note: {
+          en: 'Pairs well after Golling/Bluntautal (G19) if kids got wet and cold and need a warm reset.',
+          he: 'משתלב יפה אחרי גולינג/בלונטאוטל (G19) אם הילדים נרטבו והתקררו וצריכים איפוס חם.'
+        }
+      },
+      {
+        id: 'G19', base: 'grossarl', weather: 'sunny',
+        types: ['nature', 'water', 'food'],
+        stroller: false, nap: true,
+        mapQuery: 'Gollinger Wasserfall Bluntautal',
+        title: { en: 'Golling waterfall + Bluntautal picnic day', he: 'מפלי גולינג + יום פיקניק בבלונטאוטל' },
+        drive: { en: '~50–55 min from Grossarl / Flachau area', he: '~50–55 דק׳ מגרוסרל / אזור פלאכאו' },
+        destination: { en: 'Gollinger Wasserfall + Bluntautal / Bluntausee', he: 'Gollinger Wasserfall + Bluntautal / Bluntausee' },
+        morning: {
+          en: 'Exactly the combo repeated in Flachau-area group posts: short shady walk to the falls (~15 min), carrier recommended.',
+          he: 'בדיוק השילוב שחוזר בפוסטים מאזור פלאכאו: הליכה קצרה ומוצלת למפל (~15 דק׳), עדיף מנשא.'
+        },
+        activities: {
+          en: [
+            'Lower Golling falls first — turn around whenever kids are done',
+            'Continue 10 min to Bluntautal: flat walk beside a clear river, cows, turquoise lakes',
+            'Picnic on the grass is the must — swimming is not allowed',
+            'Park at the near Bluntausee lot, not the far one'
+          ],
+          he: [
+            'קודם מפל גולינג התחתון — מסתובבים חזרה ברגע שהילדים סיימו',
+            'המשך 10 דק׳ לבלונטאוטל: הליכה שטוחה ליד נחל צלול, פרות, אגמים טורקיז',
+            'פיקניק על הדשא זה החובה — רחצה אסורה',
+            'לחנות בחניון הקרוב של Bluntausee, לא ברחוק'
+          ]
+        },
+        lunch: {
+          en: 'Picnic at Bluntautal (bring from Flachau/Grossarl supermarket) or Gasthof in Golling',
+          he: 'פיקניק בבלונטאוטל (מהסופר בפלאכאו/גרוסרל) או גסטהוף בגולינג'
+        },
+        afternoon: {
+          en: 'Warm reset option: Wagraini\'s Wasserwelt (G18). Or drive straight home for nap.',
+          he: 'אופציית איפוס חם: Wagraini\'s Wasserwelt (G18). או נסיעה ישר הביתה לשנ״צ.'
+        },
+        note: {
+          en: 'Also appears as transfer day T4 when moving hotels — this G19 version is for staying based in Grossarl/Flachau.',
+          he: 'מופיע גם כיום מעבר T4 כשעוברים מלון — גרסת G19 הזו היא כשנשארים בבסיס גרוסרל/פלאכאו.'
+        }
+      },
+      {
+        id: 'L13', base: 'lakes', weather: 'sunny',
+        types: ['water', 'nature', 'food', 'playground'],
+        stroller: true, nap: true,
+        mapQuery: 'Radhaus St Gilgen Wolfgangsee',
+        title: { en: 'Wolfgangsee e-bike loop — Radhaus + swim stops', he: 'לולאת אופניים חשמליים בוולפגנגזה — Radhaus + עצירות רחצה' },
+        drive: { en: '15–20 min to St. Gilgen (or start from St. Wolfgang)', he: '15–20 דק׳ לסנט גילגן (או להתחיל מסנט וולפגנג)' },
+        destination: { en: 'Radhaus bike rental, St. Gilgen / Wolfgangsee shore', he: 'השכרת אופניים Radhaus, סנט גילגן / חוף וולפגנגזה' },
+        morning: {
+          en: 'Book e-bikes ahead (group tip). With a 3.5yo and a baby this only works with a child trailer / seat — otherwise treat it as a lakeside stroll + ferry day (L3).',
+          he: 'להזמין אופניים חשמליים מראש (טיפ מהקבוצה). עם ילד בן 3.5 ותינוקת זה עובד רק עם עגלת־גרר / מושב ילד — אחרת להפוך לטיילת + מעבורת (L3).'
+        },
+        activities: {
+          en: [
+            'Easy lakeside e-bike stretches with places to roll down to swim',
+            'Stop at a quiet shore for a picnic and duck-watching',
+            'Stroller-friendly promenade sections if you bail on the bikes',
+            'Lunch tip from the post: Restaurant Papageno'
+          ],
+          he: [
+            'קטעי אופניים חשמליים קלים על האגם עם מקומות לרדת לרחצה',
+            'עצירה בחוף שקט לפיקניק וצפייה בברווזים',
+            'קטעי טיילת לעגלה אם מוותרים על האופניים',
+            'טיפ צהריים מהפוסט: מסעדת Papageno'
+          ]
+        },
+        lunch: {
+          en: 'Restaurant Papageno (group recommendation) or any lakeside terrace',
+          he: 'מסעדת Papageno (המלצה מהקבוצה) או כל מרפסת על האגם'
+        },
+        afternoon: {
+          en: 'Short ferry hop or playground at Seepark St. Gilgen, then hotel nap',
+          he: 'קפיצת מעבורת קצרה או גן שעשועים ב־Seepark סנט גילגן, ואז שנ״צ במלון'
+        },
+        note: {
+          en: 'Skip the bikes entirely if you do not have a trailer — the lake day still works on foot/ferry.',
+          he: 'לוותר לגמרי על האופניים אם אין גרר — יום האגם עדיין עובד ברגל/מעבורת.'
+        }
+      },
+      {
         id: 'T1', base: 'transfer', weather: 'sunny',
         types: ['animals', 'playground', 'nature', 'food'],
         stroller: true, nap: true,
@@ -3789,8 +3996,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
           he: 'נסיעה 1:15 ל־Bachmanngut — הילדים ישנים כל הדרך. לפרוק, להכיר את חיות החווה, שחייה מוקדמת'
         },
         note: {
-          en: 'Carrier day for the waterfall, stroller fine at Bluntausee. Included in the SalzburgerLand card.',
-          he: 'יום מנשא למפל, עגלה בסדר ב־Bluntausee. כלול בכרטיס SalzburgerLand.'
+          en: 'Carrier day for the waterfall, stroller fine at Bluntausee. Picnic is the must — swimming not allowed in Bluntautal. Included in the SalzburgerLand card.',
+          he: 'יום מנשא למפל, עגלה בסדר ב־Bluntausee. פיקניק זה החובה — רחצה אסורה בבלונטאוטל. כלול בכרטיס SalzburgerLand.'
         }
       },
       {
@@ -3869,6 +4076,45 @@ svg.leaflet-image-layer.leaflet-interactive path {
         note: {
           en: 'Keep a stroller accessible until the gate — trip reports warn the gate-checked strollers can come out with the suitcases.',
           he: 'לשמור עגלה נגישה עד השער — בסיכומי הטיולים מזהירים שעגלות שנמסרו בשער עלולות לצאת עם המזוודות.'
+        }
+      },
+      {
+        id: 'T7', base: 'transfer', weather: 'sunny',
+        types: ['nature', 'water', 'animals', 'food'],
+        stroller: true, nap: true,
+        mapQuery: 'Anifer See Salzburg Bluntautal',
+        title: { en: 'Munich → Grossarl via Anifer See + Bluntautal', he: 'מינכן → גרוסרל דרך Anifer See + בלונטאוטל' },
+        drive: { en: 'MUC → Anif ~1.5 hr, +1 hr to Grossarl after Bluntautal', he: 'מינכן → אניף ~1.5 ש׳, +שעה לגרוסרל אחרי בלונטאוטל' },
+        destination: { en: 'Anifer See + Bluntautal / Bluntausee', he: 'Anifer See + Bluntautal / Bluntausee' },
+        morning: {
+          en: 'From the Flachau-area group arrival plan: land, pick up the car, and stretch at Anifer See before the Alps.',
+          he: 'מתוכנית ההגעה של הקבוצות באזור פלאכאו: לנחות, לאסוף רכב, ולמתוח רגליים ב־Anifer See לפני האלפים.'
+        },
+        activities: {
+          en: [
+            'Anifer See — short lakeside stop, ducks, easy with a stroller',
+            'Continue to Bluntautal for a flat riverside walk and picnic (no swimming)',
+            'Rainy/energy backup nearby: Salzburg Zoo or Hellbrunn trick fountains',
+            'Then finish the drive to Grossarl for check-in'
+          ],
+          he: [
+            'Anifer See — עצירה קצרה על האגם, ברווזים, נוח עם עגלה',
+            'המשך לבלונטאוטל להליכה שטוחה ליד הנחל ופיקניק (בלי רחצה)',
+            'גיבוי גשם/עייפות בקרבת מקום: גן החיות של זלצבורג או מזרקות הלברון',
+            'ואז לסיים את הנסיעה לגרוסרל לצ׳ק־אין'
+          ]
+        },
+        lunch: {
+          en: 'Picnic at Bluntautal grass, or café near Anif / Hellbrunn',
+          he: 'פיקניק על הדשא בבלונטאוטל, או קפה ליד אניף / הלברון'
+        },
+        afternoon: {
+          en: 'Arrive Lammwirt ~16:30–17:30. Unload and use the hotel play area — no more driving.',
+          he: 'הגעה ל־Lammwirt ~16:30–17:30. לפרוק ולהשתמש במשחקיה במלון — בלי עוד נסיעות.'
+        },
+        note: {
+          en: 'Best if you land early. If the flight is late, skip straight to Grossarl and save Bluntautal for G19.',
+          he: 'הכי טוב אם נוחתים מוקדם. אם הטיסה מאוחרת — ישר לגרוסרל ולשמור את בלונטאוטל ל־G19.'
         }
       }
     ];
